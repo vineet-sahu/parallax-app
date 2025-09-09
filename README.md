@@ -9,4 +9,4 @@ Animations. - can use Framer motion , GSAP etc
  
 Timeline - 2 weeks max . 
 Create separate repo. 
-Learn & implement side by side . Learning should be very fast which is expected from sr devs.
+Learn & implement side by side .
