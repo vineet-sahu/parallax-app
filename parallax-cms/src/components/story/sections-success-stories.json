@@ -1,0 +1,18 @@
+{
+  "collectionName": "components_story_sections_success_stories",
+  "info": {
+    "displayName": "sections.successStories"
+  },
+  "options": {},
+  "attributes": {
+    "heading": {
+      "type": "string"
+    },
+    "stories": {
+      "type": "component",
+      "component": "story.stories",
+      "repeatable": true
+    }
+  },
+  "config": {}
+}

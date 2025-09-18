@@ -1,27 +1,31 @@
+import { NavbarResponse } from "@/types";
 
 
 const STRAPI_URL = process.env.STRAPI_URL || "http://localhost:1337";
 const STRAPI_API_TOKEN = process.env.STRAPI_API_TOKEN || "139c48afa74046a18b57335506c569997724e21ca2be4b8ce7dace1bdce7dc06107cf65ed20140684ebab065dd657a3b6c43c2f1c0631247b8e8fecc5cb3ac4daba4478ac0c0c5eeb3d183b2bc8e33b8b6ad92a0be9f479708ebadff4f0fd6458e906dfeeaae982adf5953ba6f0ccbd9a474aaabf34d2ec157dd2b5fea173742";
 
-type NavbarItemType = {
-    label: string;
-    url: string;
-    isExternal: boolean;
-}
-
-const fetchNavbar = async () => {
+export const fetchNavbar = async (): Promise<NavbarResponse | null> => {
     try {
-        const res = fetch(`${STRAPI_URL}/api/navbar?populate=deep`, {
-            headers: {
-                Authorization: `Bearer ${STRAPI_API_TOKEN}`,
-            },
-        });
-        return ((await res).json()) as Promise<NavbarItemType[]>;
-    } catch (error) {
-        console.error("Error fetching navbar:", error);
+      const res = await fetch(`${STRAPI_URL}/api/navbar?populate=*`, {
+        headers: {
+          Authorization: `Bearer ${STRAPI_API_TOKEN}`,
+        }
+      });
+  
+      if (!res.ok) {
+        console.error("Failed to fetch navbar items:", res.statusText);
         return null;
+      }
+  
+      const data: NavbarResponse = await res.json();
+      console.log(data);
+      
+      return data;
+    } catch (error) {
+      console.error("Error fetching navbar:", error);
+      return null;
     }
-}
+};
 
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

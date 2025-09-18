@@ -29,7 +29,6 @@ export const Contact = ()=>{
               </div>
           </div>
 
-
           <div className="bg-blue-100 p-10 flex flex-col justify-center">
               <h3 className="text-2xl font-bold mb-6 text-stone-950">Let’s Talk!</h3>
               <form className="space-y-4">

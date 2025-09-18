@@ -1,13 +1,13 @@
 
 "use client";
 
-import { useState, useEffect, use } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import StrapiAPI from '../lib/strapi';
+import { NavbarResponse } from '@/types';
 
 const useNavbar = () => {
 
-    return useQuery({
+    return useQuery<NavbarResponse | null >({
         queryKey: ['strapiData'],
         queryFn: StrapiAPI.fetchNavbar,
         staleTime: 1000 * 60 * 5,

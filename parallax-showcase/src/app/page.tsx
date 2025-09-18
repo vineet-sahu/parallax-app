@@ -10,47 +10,40 @@ import { SuccessStories } from "@/components/sections/SuccessStories";
 import { Services } from "@/components/sections/Services";
 import { Insights } from "@/components/sections/Insights";
 import { Contact } from "@/components/sections/Contact";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-
-const queryClient = new QueryClient();
 
 export default function Home() {
   return (
-    <QueryClientProvider client={queryClient}>
-      <ParallaxProvider>
-      <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-        <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-          <Hero />
-          <hr className="h-px my-8 bg-gray-200 border-0 bg-white w-full opacity-20" />
-          <Client />
+    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
+    <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
+      <Hero />
+      <hr className="h-px my-8 bg-gray-200 border-0 bg-white w-full opacity-20" />
+      <Client />
 
-          <hr className="h-px my-8 bg-gray-200 border-0 bg-white  w-full" />
+      <hr className="h-px my-8 bg-gray-200 border-0 bg-white  w-full" />
 
-          <ProductEnginering />
+      <ProductEnginering />
 
-          <hr className="h-px my-8 bg-gray-200 border-0 bg-white w-full opacity-20" />
+      <hr className="h-px my-8 bg-gray-200 border-0 bg-white w-full opacity-20" />
 
-          <HappyClients />
+      <HappyClients />
 
-          <hr className="h-px my-8 bg-gray-200 border-0 bg-white w-full opacity-20" />
+      <hr className="h-px my-8 bg-gray-200 border-0 bg-white w-full opacity-20" />
 
-          <SuccessStories />
-          <hr className="h-px my-8 bg-gray-200 border-0 bg-white w-full opacity-20" />
-          
-          <Services />
-          <hr className="h-px my-8 bg-gray-200 border-0 bg-white w-full opacity-20" />
+      <SuccessStories />
+      <hr className="h-px my-8 bg-gray-200 border-0 bg-white w-full opacity-20" />
+      
+      <Services />
+      <hr className="h-px my-8 bg-gray-200 border-0 bg-white w-full opacity-20" />
 
-          <Insights />
+      <Insights />
 
-          <hr className="h-px my-8 bg-gray-200 border-0 bg-white w-full opacity-20" />
+      <hr className="h-px my-8 bg-gray-200 border-0 bg-white w-full opacity-20" />
 
-          <Contact />
-        </main>
-        <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-          
-        </footer>
-      </div>
-      </ParallaxProvider>
-    </QueryClientProvider>
+      <Contact />
+    </main>
+    <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
+      
+    </footer>
+  </div>
   );
 }
