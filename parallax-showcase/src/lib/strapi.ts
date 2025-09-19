@@ -1,8 +1,9 @@
-import { NavbarResponse } from "@/types";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { ClientsResponse, NavbarResponse } from "@/types";
 
 
-const STRAPI_URL = process.env.STRAPI_URL || "http://localhost:1337";
-const STRAPI_API_TOKEN = process.env.STRAPI_API_TOKEN || "139c48afa74046a18b57335506c569997724e21ca2be4b8ce7dace1bdce7dc06107cf65ed20140684ebab065dd657a3b6c43c2f1c0631247b8e8fecc5cb3ac4daba4478ac0c0c5eeb3d183b2bc8e33b8b6ad92a0be9f479708ebadff4f0fd6458e906dfeeaae982adf5953ba6f0ccbd9a474aaabf34d2ec157dd2b5fea173742";
+const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL || "";
+const STRAPI_API_TOKEN = process.env.NEXT_PUBLIC_STRAPI_API_TOKEN || "";
 
 export const fetchNavbar = async (): Promise<NavbarResponse | null> => {
     try {
@@ -27,6 +28,34 @@ export const fetchNavbar = async (): Promise<NavbarResponse | null> => {
     }
 };
 
+
+export const fetchClients = async (): Promise<ClientsResponse | null> => {
+    console.log("token", process.env.NEXT_PUBLIC_STRAPI_API_TOKEN);
+
+    // /api/homepage?populate=*
+    // homepage?populate[sections][populate]=*
+    // /api/homepage?populate[sections][on][client.sections-clients][populate][Client][populate]=logo
+    try {
+        const res = await fetch(`${STRAPI_URL}/api/homepage?populate[sections][on][client.sections-clients][populate][Client][populate]=logo`, {
+          headers: {
+            Authorization: `Bearer ${STRAPI_API_TOKEN}`,
+          }
+        });
+    
+        if (!res.ok) {
+          console.error("Failed to fetch fetchClients:", res.statusText);
+          return null;
+        }
+    
+        const data = await res.json();
+        console.log("sasasasasasa===========", data);
+        
+        return data;
+      } catch (error) {
+        console.error("Error fetching fetchClients:", error);
+        return null;
+      }
+}
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function getStrapiMediaUrl(media: any) {
@@ -74,4 +103,4 @@ const fetchGlobalSettings = async () => {
 };
 
 // eslint-disable-next-line import/no-anonymous-default-export
-export default { fetchNavbar, fetchFooter, fetchGlobalSettings, getStrapiMediaUrl };
+export default { fetchNavbar, fetchFooter, fetchGlobalSettings, getStrapiMediaUrl, fetchClients };

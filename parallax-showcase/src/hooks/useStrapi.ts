@@ -1,15 +1,25 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 
 "use client";
 
 import { useQuery } from '@tanstack/react-query';
 import StrapiAPI from '../lib/strapi';
-import { NavbarResponse } from '@/types';
+import { ClientsResponse, NavbarResponse } from '@/types';
 
 const useNavbar = () => {
 
     return useQuery<NavbarResponse | null >({
         queryKey: ['strapiData'],
         queryFn: StrapiAPI.fetchNavbar,
+        staleTime: 1000 * 60 * 5,
+    });
+}
+
+
+const useClients = () => {
+    return useQuery<ClientsResponse | null>({
+        queryKey: ['clientsData'],
+        queryFn: StrapiAPI.fetchClients,
         staleTime: 1000 * 60 * 5,
     });
 }
@@ -32,4 +42,4 @@ const useGlobalSettings = () => {
 
 
 // eslint-disable-next-line import/no-anonymous-default-export
-export default { useNavbar, useFooter, useGlobalSettings };
+export default { useNavbar, useFooter, useGlobalSettings, useClients };

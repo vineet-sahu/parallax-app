@@ -1,7 +1,7 @@
 {
-  "collectionName": "components_section_heroes",
+  "collectionName": "components_hero_sections_heroes",
   "info": {
-    "displayName": "Hero"
+    "displayName": "sections.hero"
   },
   "options": {},
   "attributes": {

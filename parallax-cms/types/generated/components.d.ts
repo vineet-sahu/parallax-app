@@ -1,22 +1,29 @@
 import type { Schema, Struct } from '@strapi/strapi';
 
-export interface ClientclientsClients extends Struct.ComponentSchema {
-  collectionName: 'components_clientclients_clients';
-  info: {
-    displayName: 'Clients';
-  };
-  attributes: {
-    Client: Schema.Attribute.Component<'clientdetails.clients', true>;
-    heading: Schema.Attribute.String;
-  };
-}
-
-export interface ClientdetailsClients extends Struct.ComponentSchema {
-  collectionName: 'components_clientdetails_clients';
+export interface ClientClients extends Struct.ComponentSchema {
+  collectionName: 'components_client_clients';
   info: {
     displayName: 'clients';
   };
-  attributes: {};
+  attributes: {
+    logo: Schema.Attribute.Media<
+      'images' | 'files' | 'videos' | 'audios',
+      true
+    >;
+    name: Schema.Attribute.String;
+    url: Schema.Attribute.String;
+  };
+}
+
+export interface ClientSectionsClients extends Struct.ComponentSchema {
+  collectionName: 'components_client_sections_clients';
+  info: {
+    displayName: 'sections.clients';
+  };
+  attributes: {
+    Client: Schema.Attribute.Component<'client.clients', true>;
+    heading: Schema.Attribute.String;
+  };
 }
 
 export interface ContactFormSectionsContactForm extends Struct.ComponentSchema {
@@ -31,22 +38,10 @@ export interface ContactFormSectionsContactForm extends Struct.ComponentSchema {
   };
 }
 
-export interface MenuItemMenuItem extends Struct.ComponentSchema {
-  collectionName: 'components_menu_item_menu_items';
+export interface HeroSectionsHero extends Struct.ComponentSchema {
+  collectionName: 'components_hero_sections_heroes';
   info: {
-    displayName: 'menu-item';
-  };
-  attributes: {
-    isExternal: Schema.Attribute.String;
-    label: Schema.Attribute.String;
-    url: Schema.Attribute.String;
-  };
-}
-
-export interface SectionHero extends Struct.ComponentSchema {
-  collectionName: 'components_section_heroes';
-  info: {
-    displayName: 'Hero';
+    displayName: 'sections.hero';
   };
   attributes: {
     backgroundImage: Schema.Attribute.Media<
@@ -56,6 +51,18 @@ export interface SectionHero extends Struct.ComponentSchema {
     stats: Schema.Attribute.Component<'stat.stats', false>;
     subtitle: Schema.Attribute.RichText;
     title: Schema.Attribute.String;
+  };
+}
+
+export interface MenuItemMenuItem extends Struct.ComponentSchema {
+  collectionName: 'components_menu_item_menu_items';
+  info: {
+    displayName: 'menu-item';
+  };
+  attributes: {
+    isExternal: Schema.Attribute.String;
+    label: Schema.Attribute.String;
+    url: Schema.Attribute.String;
   };
 }
 
@@ -122,11 +129,11 @@ export interface StoryStories extends Struct.ComponentSchema {
 declare module '@strapi/strapi' {
   export module Public {
     export interface ComponentSchemas {
-      'clientclients.clients': ClientclientsClients;
-      'clientdetails.clients': ClientdetailsClients;
+      'client.clients': ClientClients;
+      'client.sections-clients': ClientSectionsClients;
       'contact-form.sections-contact-form': ContactFormSectionsContactForm;
+      'hero.sections-hero': HeroSectionsHero;
       'menu-item.menu-item': MenuItemMenuItem;
-      'section.hero': SectionHero;
       'service.sections-services': ServiceSectionsServices;
       'service.services': ServiceServices;
       'stat.stats': StatStats;

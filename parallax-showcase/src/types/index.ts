@@ -1,69 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-// {
-//     "id": 2,
-//     "documentId": "v6gdex3h02uqy2eg1ropzzt2",
-//     "createdAt": "2025-09-17T08:32:51.502Z",
-//     "updatedAt": "2025-09-18T08:34:41.703Z",
-//     "publishedAt": "2025-09-18T08:34:41.712Z",
-//     "buttonLink": null,
-//     "buttonText": null,
-//     "menuItems": [
-//         {
-//             "id": 6,
-//             "label": "Explore AI",
-//             "url": "/explore_aI",
-//             "isExternal": null
-//         },
-//         {
-//             "id": 7,
-//             "label": "Services",
-//             "url": "/services",
-//             "isExternal": null
-//         },
-//         {
-//             "id": 8,
-//             "label": "E-commerce",
-//             "url": "/e-commerce",
-//             "isExternal": null
-//         },
-//         {
-//             "id": 9,
-//             "label": "Products",
-//             "url": "/products",
-//             "isExternal": null
-//         },
-//         {
-//             "id": 10,
-//             "label": "Blogs",
-//             "url": "blogs",
-//             "isExternal": null
-//         }
-//     ],
-//     "logo": [
-//         {
-//             "id": 1,
-//             "documentId": "ylvf8cozubr4nqu6gpb0pqf1",
-//             "name": "chromezy.png",
-//             "alternativeText": null,
-//             "caption": null,
-//             "width": 128,
-//             "height": 27,
-//             "formats": null,
-//             "hash": "chromezy_660295d19c",
-//             "ext": ".png",
-//             "mime": "image/png",
-//             "size": 0.94,
-//             "url": "/uploads/chromezy_660295d19c.png",
-//             "previewUrl": null,
-//             "provider": "local",
-//             "provider_metadata": null,
-//             "createdAt": "2025-09-17T08:27:14.875Z",
-//             "updatedAt": "2025-09-17T08:28:23.640Z",
-//             "publishedAt": "2025-09-17T08:27:14.876Z"
-//         }
-//     ]
-// }
-
 export interface MenuItem {
     id: number;
     label: string;
@@ -142,5 +77,127 @@ export interface MenuItem {
     meta: any;
   }
 
+  export interface ClientSectionFields {
+    sections: Section[];
+ }
+
   export type NavbarResponse = StrapiSingleResponse<NavbarFields>;
+  export type ClientsResponse = StrapiSingleResponse<ClientSectionFields>;
+
+  export interface Client {
+    id: number;
+    name: string;
+    url: string | null;
+    logo: Logo[];
+  }
   
+  export interface Section {
+    __component: string;
+    id: number;
+    heading: string;
+    Client: Client[];
+  }
+
+//   {
+//     "data": {
+//         "id": 3,
+//         "documentId": "udrj9fnwt0s84qfl1q2ftjaj",
+//         "createdAt": "2025-09-19T02:48:17.036Z",
+//         "updatedAt": "2025-09-19T04:15:11.250Z",
+//         "publishedAt": "2025-09-19T04:15:11.260Z",
+//         "sections": [
+//             {
+//                 "__component": "client.sections-clients",
+//                 "id": 2,
+//                 "heading": "Clients list",
+//                 "Client": [
+//                     {
+//                         "id": 4,
+//                         "name": "master study",
+//                         "url": null,
+//                         "logo": [
+//                             {
+//                                 "id": 9,
+//                                 "documentId": "q1pi8vmpy3jxrtz5i6lsjxsj",
+//                                 "name": "logo_001.png",
+//                                 "alternativeText": null,
+//                                 "caption": null,
+//                                 "width": 150,
+//                                 "height": 72,
+//                                 "formats": null,
+//                                 "hash": "logo_001_f7848ee8a6",
+//                                 "ext": ".png",
+//                                 "mime": "image/png",
+//                                 "size": 0.86,
+//                                 "url": "/uploads/logo_001_f7848ee8a6.png",
+//                                 "previewUrl": null,
+//                                 "provider": "local",
+//                                 "provider_metadata": null,
+//                                 "createdAt": "2025-09-19T02:47:15.927Z",
+//                                 "updatedAt": "2025-09-19T02:47:15.927Z",
+//                                 "publishedAt": "2025-09-19T02:47:15.927Z"
+//                             }
+//                         ]
+//                     },
+//                     {
+//                         "id": 5,
+//                         "name": "orofil",
+//                         "url": null,
+//                         "logo": [
+//                             {
+//                                 "id": 8,
+//                                 "documentId": "g7wh9yytznhy09epx6iun2eg",
+//                                 "name": "logo_002.png",
+//                                 "alternativeText": null,
+//                                 "caption": null,
+//                                 "width": 150,
+//                                 "height": 72,
+//                                 "formats": null,
+//                                 "hash": "logo_002_1bcd217be5",
+//                                 "ext": ".png",
+//                                 "mime": "image/png",
+//                                 "size": 0.71,
+//                                 "url": "/uploads/logo_002_1bcd217be5.png",
+//                                 "previewUrl": null,
+//                                 "provider": "local",
+//                                 "provider_metadata": null,
+//                                 "createdAt": "2025-09-19T02:47:15.913Z",
+//                                 "updatedAt": "2025-09-19T02:47:15.913Z",
+//                                 "publishedAt": "2025-09-19T02:47:15.913Z"
+//                             }
+//                         ]
+//                     },
+//                     {
+//                         "id": 6,
+//                         "name": "fonnia",
+//                         "url": null,
+//                         "logo": [
+//                             {
+//                                 "id": 7,
+//                                 "documentId": "ndkq5b2rlstex1ew1u9ml2nd",
+//                                 "name": "logo_004.png",
+//                                 "alternativeText": null,
+//                                 "caption": null,
+//                                 "width": 150,
+//                                 "height": 72,
+//                                 "formats": null,
+//                                 "hash": "logo_004_7bdcf1acde",
+//                                 "ext": ".png",
+//                                 "mime": "image/png",
+//                                 "size": 1.04,
+//                                 "url": "/uploads/logo_004_7bdcf1acde.png",
+//                                 "previewUrl": null,
+//                                 "provider": "local",
+//                                 "provider_metadata": null,
+//                                 "createdAt": "2025-09-19T02:47:15.880Z",
+//                                 "updatedAt": "2025-09-19T02:47:15.880Z",
+//                                 "publishedAt": "2025-09-19T02:47:15.880Z"
+//                             }
+//                         ]
+//                     }
+//                 ]
+//             }
+//         ]
+//     },
+//     "meta": {}
+// }

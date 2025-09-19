@@ -1,7 +1,7 @@
 {
-  "collectionName": "components_clientclients_clients",
+  "collectionName": "components_client_sections_clients",
   "info": {
-    "displayName": "Clients"
+    "displayName": "sections.clients"
   },
   "options": {},
   "attributes": {
@@ -10,7 +10,7 @@
     },
     "Client": {
       "type": "component",
-      "component": "clientdetails.clients",
+      "component": "client.clients",
       "repeatable": true
     }
   },

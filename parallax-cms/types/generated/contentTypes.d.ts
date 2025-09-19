@@ -373,7 +373,7 @@ export interface AdminUser extends Struct.CollectionTypeSchema {
   };
 }
 
-export interface ApiHomepageHomepage extends Struct.CollectionTypeSchema {
+export interface ApiHomepageHomepage extends Struct.SingleTypeSchema {
   collectionName: 'homepages';
   info: {
     displayName: 'Homepage';
@@ -396,8 +396,8 @@ export interface ApiHomepageHomepage extends Struct.CollectionTypeSchema {
     publishedAt: Schema.Attribute.DateTime;
     sections: Schema.Attribute.DynamicZone<
       [
-        'section.hero',
-        'clientclients.clients',
+        'hero.sections-hero',
+        'client.sections-clients',
         'service.sections-services',
         'story.sections-success-stories',
         'contact-form.sections-contact-form',

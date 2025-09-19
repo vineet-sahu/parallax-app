@@ -1,5 +1,5 @@
 {
-  "kind": "collectionType",
+  "kind": "singleType",
   "collectionName": "homepages",
   "info": {
     "singularName": "homepage",
@@ -14,8 +14,8 @@
     "sections": {
       "type": "dynamiczone",
       "components": [
-        "section.hero",
-        "clientclients.clients",
+        "hero.sections-hero",
+        "client.sections-clients",
         "service.sections-services",
         "story.sections-success-stories",
         "contact-form.sections-contact-form"
