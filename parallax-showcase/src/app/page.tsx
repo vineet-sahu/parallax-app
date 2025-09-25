@@ -3,11 +3,10 @@ import React from 'react';
 
 import { Client } from "@/components/sections/Clients";
 import Hero from "./../components/sections/Hero";
-import { ParallaxProvider } from "react-scroll-parallax";
-import { ProductEnginering } from "@/components/sections/ProductEnginering";
-import { HappyClients } from "@/components/sections/HappyClients";
-import { SuccessStories } from "@/components/sections/SuccessStories";
 import { Services } from "@/components/sections/Services";
+import { Testimonial } from "@/components/sections/Testimonial";
+import { SuccessStories } from "@/components/sections/SuccessStories";
+import { TechnologyStack } from "@/components/sections/TechnologyStack";
 import { Insights } from "@/components/sections/Insights";
 import { Contact } from "@/components/sections/Contact";
 
@@ -21,18 +20,18 @@ export default function Home() {
 
       <hr className="h-px my-8 bg-gray-200 border-0 bg-white  w-full" />
 
-      <ProductEnginering />
+      <Services />
 
       <hr className="h-px my-8 bg-gray-200 border-0 bg-white w-full opacity-20" />
 
-      <HappyClients />
+      <Testimonial />
 
       <hr className="h-px my-8 bg-gray-200 border-0 bg-white w-full opacity-20" />
 
       <SuccessStories />
       <hr className="h-px my-8 bg-gray-200 border-0 bg-white w-full opacity-20" />
       
-      <Services />
+      <TechnologyStack />
       <hr className="h-px my-8 bg-gray-200 border-0 bg-white w-full opacity-20" />
 
       <Insights />

@@ -5,16 +5,16 @@
   },
   "options": {},
   "attributes": {
-    "title": {
+    "preTitle": {
       "type": "string"
     },
-    "subtitle": {
-      "type": "richtext"
+    "tagline": {
+      "type": "string"
     },
     "stats": {
       "type": "component",
       "component": "stat.stats",
-      "repeatable": false
+      "repeatable": true
     },
     "backgroundImage": {
       "type": "media",
@@ -25,6 +25,14 @@
         "videos",
         "audios"
       ]
+    },
+    "mainTitle": {
+      "type": "component",
+      "component": "main-title.main-title",
+      "repeatable": false
+    },
+    "description": {
+      "type": "text"
     }
   },
   "config": {}

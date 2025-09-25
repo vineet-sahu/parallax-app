@@ -398,9 +398,12 @@ export interface ApiHomepageHomepage extends Struct.SingleTypeSchema {
       [
         'hero.sections-hero',
         'client.sections-clients',
-        'service.sections-services',
+        'client.sections-testimonials',
         'story.sections-success-stories',
         'contact-form.sections-contact-form',
+        'story.sections-insight-section',
+        'service.sections-service',
+        'service.sections-technology-stacks',
       ]
     >;
     updatedAt: Schema.Attribute.DateTime;

@@ -1,7 +1,7 @@
 {
-  "collectionName": "components_service_services",
+  "collectionName": "components_service_service_details",
   "info": {
-    "displayName": "services"
+    "displayName": "ServiceDetail"
   },
   "options": {},
   "attributes": {
@@ -9,17 +9,23 @@
       "type": "string"
     },
     "description": {
-      "type": "text"
+      "type": "string"
     },
-    "image": {
+    "icon": {
       "type": "media",
-      "multiple": true,
+      "multiple": false,
       "allowedTypes": [
         "images",
         "files",
         "videos",
         "audios"
       ]
+    },
+    "buttonText": {
+      "type": "string"
+    },
+    "buttonLink": {
+      "type": "string"
     }
   },
   "config": {}

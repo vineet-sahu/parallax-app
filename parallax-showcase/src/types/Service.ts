@@ -1,0 +1,26 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
+import { Logo } from "./Common";
+  
+  export interface ServiceSection {
+    __component: "service.sections-service";
+    id: number;
+    title: string;
+    description: string;
+    service_details: ServiceDetail[];
+  }
+  
+  export interface ServiceDetail {
+    id: number;
+    title: string;
+    description: string;
+    buttonText?: string | null;
+    buttonLink?: string | null;
+    icon?: Logo | null;
+  }
+  
+
+    export interface ServicesSectionFields {
+      sections: ServiceSection[];
+    }
+

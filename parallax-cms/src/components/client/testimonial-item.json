@@ -1,0 +1,44 @@
+{
+  "collectionName": "components_client_testimonial_items",
+  "info": {
+    "displayName": "Testimonial Item"
+  },
+  "options": {},
+  "attributes": {
+    "quote": {
+      "type": "text"
+    },
+    "author_name": {
+      "type": "string"
+    },
+    "author_designation": {
+      "type": "string"
+    },
+    "company": {
+      "type": "string"
+    },
+    "star_rating": {
+      "type": "decimal"
+    },
+    "project": {
+      "type": "string"
+    },
+    "country": {
+      "type": "string"
+    },
+    "company_logo": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "order": {
+      "type": "integer"
+    }
+  },
+  "config": {}
+}

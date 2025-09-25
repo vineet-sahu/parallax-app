@@ -1,92 +1,58 @@
-import img12 from "@/assets/image12.png";
+import { useAppContext } from "@/context/ParallaxContext";
 
+export const Services = () => {
+  const {
+    services: { isLoading, error, data },
+  } = useAppContext();
 
+  const servicesData = data?.data?.sections?.[0];
 
-export const Services = ()=>{
-    return  <>
-    <div className="w-full text-white md:py-16 md:px-6">
-      <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          <div className="bg-gray-800 rounded-3xl p-10 relative overflow-hidden">
-              <h2 className="text-4xl font-bold uppercase leading-snug">Innovative Technologies<br/>Keeping Us Ahead</h2>
-              <p className="mt-4 text-gray-400">
-                  Discover the impact of bespoke digital solutions tailored precisely to your business's distinct requirements.
-              </p>
-              <div className="mt-10">
-                  <img src={img12.src} alt="3D Shape" className="rounded-lg" />
-              </div>
-          </div>
-          <div className="space-y-10">
-              <div>
-                  <div className="flex items-center gap-3">
-                      <span className="text-gray-600 text-2xl font-bold">01</span>
-                      <h3 className="text-xl font-semibold">Web App Development</h3>
-                  </div>
-                  <div className="flex flex-wrap gap-3 mt-3">
-                      <span className="bg-gray-800 px-3 py-1 rounded-lg">React</span>
-                      <span className="bg-gray-800 px-3 py-1 rounded-lg">Node</span>
-                      <span className="bg-gray-800 px-3 py-1 rounded-lg">Angular</span>
-                      <span className="bg-gray-800 px-3 py-1 rounded-lg">Vue</span>
-                      <span className="bg-gray-800 px-3 py-1 rounded-lg">ExpressJS</span>
-                      <span className="bg-gray-800 px-3 py-1 rounded-lg">AdobeXD</span>
-                      <span className="bg-gray-800 px-3 py-1 rounded-lg">Figma</span>
-                      <span className="bg-gray-800 px-3 py-1 rounded-lg">Whimsical</span>
-                  </div>
-              </div>
-              <div>
-                  <div className="flex items-center gap-3">
-                      <span className="text-gray-600 text-2xl font-bold">02</span>
-                      <h3 className="text-xl font-semibold">Mobile App Development</h3>
-                  </div>
-                  <div className="flex flex-wrap gap-3 mt-3">
-                      <span className="bg-gray-800 px-3 py-1 rounded-lg">Flutter</span>
-                      <span className="bg-gray-800 px-3 py-1 rounded-lg">Kotlin</span>
-                      <span className="bg-gray-800 px-3 py-1 rounded-lg">Swift</span>
-                      <span className="bg-gray-800 px-3 py-1 rounded-lg">React Native</span>
-                      <span className="bg-gray-800 px-3 py-1 rounded-lg">AdobeXD</span>
-                      <span className="bg-gray-800 px-3 py-1 rounded-lg">Figma</span>
-                  </div>
-              </div>
-              <div>
-                  <div className="flex items-center gap-3">
-                      <span className="text-gray-600 text-2xl font-bold">03</span>
-                      <h3 className="text-xl font-semibold">E-commerce</h3>
-                  </div>
-                  <div className="flex flex-wrap gap-3 mt-3">
-                      <span className="bg-gray-800 px-3 py-1 rounded-lg">Shopify</span>
-                      <span className="bg-gray-800 px-3 py-1 rounded-lg">WooCommerce</span>
-                      <span className="bg-gray-800 px-3 py-1 rounded-lg">Prestashop</span>
-                  </div>
-              </div>
-              <div>
-                  <div className="flex items-center gap-3">
-                      <span className="text-gray-600 text-2xl font-bold">04</span>
-                      <h3 className="text-xl font-semibold">Analytics</h3>
-                  </div>
-                  <div className="flex flex-wrap gap-3 mt-3">
-                      <span className="bg-gray-800 px-3 py-1 rounded-lg">Python</span>
-                      <span className="bg-gray-800 px-3 py-1 rounded-lg">PowerBI</span>
-                      <span className="bg-gray-800 px-3 py-1 rounded-lg">Tableau</span>
-                      <span className="bg-gray-800 px-3 py-1 rounded-lg">Amazon QuickSight</span>
-                      <span className="bg-gray-800 px-3 py-1 rounded-lg">Apache Spark</span>
-                  </div>
-              </div>
-              <div>
-                  <div className="flex items-center gap-3">
-                      <span className="text-gray-600 text-2xl font-bold">05</span>
-                      <h3 className="text-xl font-semibold">Data & Cloud</h3>
-                  </div>
-                  <div className="flex flex-wrap gap-3 mt-3">
-                      <span className="bg-gray-800 px-3 py-1 rounded-lg">Azure</span>
-                      <span className="bg-gray-800 px-3 py-1 rounded-lg">AWS</span>
-                      <span className="bg-gray-800 px-3 py-1 rounded-lg">Docker</span>
-                      <span className="bg-gray-800 px-3 py-1 rounded-lg">Kubernetes</span>
-                      <span className="bg-gray-800 px-3 py-1 rounded-lg">Google Cloud</span>
-                      <span className="bg-gray-800 px-3 py-1 rounded-lg">Ola Krutrim</span>
-                  </div>
-              </div>
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>Error loading services</div>;
+  if (!servicesData) return null;
 
-          </div>
+  return (
+    <>
+      
+      <div className="max-w-3xl mb-12">
+        <h2 className="text-3xl md:text-4xl font-bold">
+          {servicesData.title}
+        </h2>
+        <p className="mt-4 text-gray-300">{servicesData.description}</p>
       </div>
+
+      
+      <div className="grid gap-6 items-stretch grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+        {servicesData.service_details?.map((service) => (
+          <div
+            key={service.id}
+            className="bg-blue-700 p-6 rounded-xl shadow-lg flex flex-col justify-between h-full"
+          >
+            <span className="text-sm bg-white/10 px-3 py-1 rounded-full w-max mb-4">
+              Our Services
+            </span>
+
+            
+            <h3 className="mt-12 text-4xl font-bold mb-3 break-words">
+              {service.title}
+            </h3>
+
+            
+            <p className="text-gray-200 text-base mb-6">{service.description}</p>
+
+            
+            {service.buttonLink && (
+              <a
+                href={service.buttonLink || "#"}
+                className="text-sm mt-auto inline-flex items-center justify-center px-1 py-3 bg-black text-white rounded-full font-medium hover:bg-gray-800 sm:text-xs"
+              >
+                {service.buttonText || "Talk to a Product Expert"}
+                <span className="ml-2">↗</span>
+              </a>
+            )}
+          </div>
+        ))}
       </div>
-    </>;
-}
+    </>
+  );
+};

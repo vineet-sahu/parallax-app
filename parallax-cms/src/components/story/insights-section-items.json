@@ -1,14 +1,14 @@
 {
-  "collectionName": "components_story_stories",
+  "collectionName": "components_story_insights_section_items",
   "info": {
-    "displayName": "stories"
+    "displayName": "Insights Section items"
   },
   "options": {},
   "attributes": {
     "title": {
       "type": "string"
     },
-    "description": {
+    "summary": {
       "type": "text"
     },
     "image": {
@@ -22,6 +22,9 @@
       ]
     },
     "url": {
+      "type": "string"
+    },
+    "date": {
       "type": "string"
     }
   },

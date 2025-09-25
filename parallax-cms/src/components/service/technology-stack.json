@@ -1,0 +1,21 @@
+{
+  "collectionName": "components_service_technology-stacks",
+  "info": {
+    "displayName": "domains"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text"
+    },
+    "tool": {
+      "type": "component",
+      "component": "service-tool.service-tool",
+      "repeatable": true
+    }
+  },
+  "config": {}
+}

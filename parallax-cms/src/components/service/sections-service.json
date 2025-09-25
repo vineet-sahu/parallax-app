@@ -1,16 +1,19 @@
 {
   "collectionName": "components_service_sections_services",
   "info": {
-    "displayName": "sections.services"
+    "displayName": "sections.service-section"
   },
   "options": {},
   "attributes": {
-    "heading": {
+    "title": {
       "type": "string"
     },
-    "services": {
+    "description": {
+      "type": "text"
+    },
+    "service_details": {
       "type": "component",
-      "component": "service.services",
+      "component": "service.service-detail",
       "repeatable": true
     }
   },

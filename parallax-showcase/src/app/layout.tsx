@@ -1,5 +1,6 @@
 'use client';
 
+import GlobalLoader from "@/components/common/GlobalLoader";
 import "./globals.css";
 import Navbar from "@/components/common/Navbar";
 import AppProvider from "@/context/ParallaxContext";
@@ -22,6 +23,7 @@ export default function RootLayout({
       <QueryClientProvider client={queryClient}>
       <ParallaxProvider>
         <AppProvider>
+          <GlobalLoader />
           <Navbar />
           {children}
         </AppProvider>

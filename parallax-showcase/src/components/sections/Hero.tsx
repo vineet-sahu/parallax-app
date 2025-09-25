@@ -1,53 +1,40 @@
 /* eslint-disable react/no-unescaped-entities */
 "use client";
-import { Client } from "./Clients";
-import { ProductEnginering } from "./ProductEnginering";
-import { HappyClients } from "./HappyClients";
-import { SuccessStories } from "./SuccessStories";
-import { Services } from "./Services";
-import { Insights } from "./Insights";
+import { useAppContext } from "@/context/ParallaxContext";
 
-
-
-
-const Hero = () => {
-
-
-    return <>
+export const Hero = () => {
+    const {
+        heroContent: { isLoading, error, data },
+      } = useAppContext();
     
-    <div className="text-center mx-auto md:w-1/2">
-      <h5>✨ Introducing AI Automation</h5> 
-      <h1 className="text-5xl font-bold mb-4">
-          from <span className="text-cyan-400">CONCEPT</span> <br />
-          to <span className="text-blue-600">REALITY</span>
+      const heroContentData = data?.data?.sections?.[0];
+    
+      if (isLoading) return <div>Loading...</div>;
+      if (error) return <div>Error loading heroContent</div>;
+      if (!heroContentData) return null;
+
+    return (
+      <div className="text-center mx-auto md:w-1/2">
+        <h5>{heroContentData.preTitle}</h5>
+        <h1 className="text-5xl font-bold mb-4">
+          {heroContentData.mainTitle.before} <span className="text-cyan-400">{heroContentData.mainTitle.highlight1}</span> <br />
+          {heroContentData.mainTitle.connector} <span className="text-blue-600">{heroContentData.mainTitle.highlight2}</span>
         </h1>
-      <p className="text-lime-200 text-2xl">We Engineer your Software Success & Digital Transformation.</p>
-
-        <p className="text-sm m-8 size-fit mx-auto ">
-          At Chromezy, we translate your ideas into market-ready solutions quickly and precisely. Leveraging the power of technology and prioritizing user needs, we deliver products that are both cutting-edge and user-centric.
-      </p>
-
-      <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-8 text-center mt-24">
-          <div>
-              <h3 className="text-blue-600 text-2xl font-bold">200%</h3>
-              <p className="text-xs">Revenue Growth</p>
-          </div>
-          <div>
-              <h3 className="text-blue-600 text-2xl font-bold">4X</h3>
-              <p className="text-xs">Speed to Market</p>
-          </div>
-          <div>
-              <h3 className="text-blue-600 text-2xl font-bold">73%</h3>
-              <p className="text-xs">New Orders</p>
-          </div>
-          <div>
-              <h3 className="text-blue-600 text-2xl font-bold">10K+</h3>
-              <p className="text-xs">Active Users</p>
-          </div>
+        <p className="text-lime-200 text-2xl">{heroContentData.tagline}</p>
+  
+        <p className="text-sm m-8 size-fit mx-auto">{heroContentData.description}</p>
+  
+        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-8 text-center mt-24">
+          {heroContentData.stats.map((stat, idx) => (
+            <div key={idx}>
+              <h3 className="text-blue-600 text-2xl font-bold">{stat.value}</h3>
+              <p className="text-xs">{stat.label}</p>
+            </div>
+          ))}
+        </div>
       </div>
-      </div>
-    </>;
-}
+    );
+  };
 
 
 export default Hero;

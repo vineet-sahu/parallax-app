@@ -1,0 +1,22 @@
+{
+  "collectionName": "components_main_title_main_titles",
+  "info": {
+    "displayName": "mainTitle"
+  },
+  "options": {},
+  "attributes": {
+    "before": {
+      "type": "string"
+    },
+    "highlight1": {
+      "type": "string"
+    },
+    "connector": {
+      "type": "string"
+    },
+    "highlight2": {
+      "type": "string"
+    }
+  },
+  "config": {}
+}

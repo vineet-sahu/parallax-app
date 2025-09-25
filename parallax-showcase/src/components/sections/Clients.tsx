@@ -1,21 +1,13 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import logo1 from "@/assets/logos/logo_001.png";
-import logo2 from "@/assets/logos/logo_002.png";
-import logo3 from "@/assets/logos/logo_003.png";
-import logo4 from "@/assets/logos/logo_004.png";
-import logo5 from "@/assets/logos/logo_005.png";
-import logo6 from "@/assets/logos/logo_006.png";
-import logo7 from "@/assets/logos/logo_007.png";
+/* eslint-disable @next/next/no-img-element */
+
 import { useAppContext } from "@/context/ParallaxContext";
+import { getStrapiMediaUrl } from "@/lib/strapi";
 
 export const Client = ()=>{
 
   const { clientSection: {isLoading, error, data} } = useAppContext();
+  const clients = (data?.data?.sections || [])[0]?.Client || [];
 
-
-console.log("allData===========", data);
-
- // Loading state
  if (isLoading) {
   return (
     <div className="flex flex-wrap items-center justify-center gap-6 md:gap-12 w-full">
@@ -24,7 +16,6 @@ console.log("allData===========", data);
   );
 }
 
-// Error state
 if (error) {
   return (
     <div className="flex flex-wrap items-center justify-center gap-6 md:gap-12 w-full">
@@ -33,10 +24,6 @@ if (error) {
   );
 }
 
-
-const clients = (data?.data?.sections || [])[0]?.Client || [];
-
-// No clients found
 if (!clients || clients.length === 0) {
   return (
     <div className="flex flex-wrap items-center justify-center gap-6 md:gap-12 w-full">
@@ -45,22 +32,15 @@ if (!clients || clients.length === 0) {
   );
 }
 
-
-const getFullImageUrl = (logoUrl: string): string => {
-  const baseUrl = process.env.NEXT_PUBLIC_STRAPI_URL || 'http://localhost:1337';
-  return baseUrl + logoUrl;
-};
-
-  // Extract and render clients
   return (
     <div className="flex flex-wrap items-center justify-center gap-6 md:gap-12 w-full">
-      {clients.map((client: any) => (
+      {clients.map((client) => (
         <div key={client.id} className="flex items-center justify-center">
-          {client.logo && client.logo.length > 0 ? (
+          {client.logo ? (
             <img 
               className="max-h-16 w-auto object-contain" 
-              src={getFullImageUrl(client.logo[0].url)} 
-              alt={client.logo[0].alternativeText || client.name}
+              src={getStrapiMediaUrl(client.logo) as string} 
+              alt={client.logo.alternativeText || client.name}
               title={client.name}
             />
           ) : (
@@ -72,13 +52,4 @@ const getFullImageUrl = (logoUrl: string): string => {
       ))}
     </div>
   );
-// return  <div className={ "flex flex-wrap items-center justify-center gap-6 md:gap-12 w-full"}>
-//         <img className="" src={logo1.src} alt="logos" />
-//         <img className="" src={logo2.src} alt="logos" />
-//         <img className="" src={logo3.src} alt="logos" />
-//         <img className="" src={logo4.src} alt="logos" />
-//         <img className="" src={logo5.src} alt="logos" />
-//         <img className="" src={logo6.src} alt="logos" />
-//         <img className="" src={logo7.src} alt="logos" />
-//       </div>
 }

@@ -1,17 +1,14 @@
 {
-  "collectionName": "components_story_stories",
+  "collectionName": "components_service_tool_service_tools",
   "info": {
-    "displayName": "stories"
+    "displayName": "Service-Tool"
   },
   "options": {},
   "attributes": {
-    "title": {
+    "name": {
       "type": "string"
     },
-    "description": {
-      "type": "text"
-    },
-    "image": {
+    "icon": {
       "type": "media",
       "multiple": false,
       "allowedTypes": [
@@ -20,9 +17,6 @@
         "videos",
         "audios"
       ]
-    },
-    "url": {
-      "type": "string"
     }
   },
   "config": {}

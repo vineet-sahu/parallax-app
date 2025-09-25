@@ -1,0 +1,21 @@
+{
+  "collectionName": "components_story_sections_insight_sections",
+  "info": {
+    "displayName": "sections.insight_section"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text"
+    },
+    "items": {
+      "type": "component",
+      "component": "story.insights-section-items",
+      "repeatable": true
+    }
+  },
+  "config": {}
+}

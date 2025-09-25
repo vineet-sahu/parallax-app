@@ -13,6 +13,33 @@
     },
     "buttonText": {
       "type": "string"
+    },
+    "formfields": {
+      "type": "component",
+      "component": "contact-form.contact-form",
+      "repeatable": true
+    },
+    "url": {
+      "type": "string"
+    },
+    "phone": {
+      "type": "string"
+    },
+    "email": {
+      "type": "string"
+    },
+    "icon": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "form_title": {
+      "type": "string"
     }
   },
   "config": {}

@@ -1,0 +1,21 @@
+{
+  "collectionName": "components_service_sections_technology_stacks",
+  "info": {
+    "displayName": "sections.technology-stack-section"
+  },
+  "options": {},
+  "attributes": {
+    "heading": {
+      "type": "string"
+    },
+    "technology_stacks": {
+      "type": "component",
+      "component": "service.technology-stack",
+      "repeatable": true
+    },
+    "description": {
+      "type": "text"
+    }
+  },
+  "config": {}
+}

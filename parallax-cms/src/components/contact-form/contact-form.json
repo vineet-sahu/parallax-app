@@ -1,0 +1,29 @@
+{
+  "collectionName": "components_contact_form_contact_forms",
+  "info": {
+    "displayName": "Contact-Form"
+  },
+  "options": {},
+  "attributes": {
+    "label": {
+      "type": "string"
+    },
+    "placeholder": {
+      "type": "string"
+    },
+    "type": {
+      "type": "enumeration",
+      "enum": [
+        "text",
+        "date",
+        "email",
+        "phone",
+        "textarea"
+      ]
+    },
+    "required": {
+      "type": "boolean"
+    }
+  },
+  "config": {}
+}

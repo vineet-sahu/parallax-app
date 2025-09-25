@@ -1,106 +1,90 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import { ClientsResponse, NavbarResponse } from "@/types";
+import {
+  ClientsResponse,
+  ContactFormResponse,
+  HeroContentSectionResponse,
+  InsightSectionResponse,
+  NavbarResponse,
+  ServicesResponse,
+  SuccessStoriesResponse,
+  TechnologyStackResponse,
+  TestimonialResponse,
+} from "@/types";
+import { Media } from "@/utils";
 
+const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL ?? "";
+const STRAPI_API_TOKEN = process.env.NEXT_PUBLIC_STRAPI_API_TOKEN ?? "";
 
-const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL || "";
-const STRAPI_API_TOKEN = process.env.NEXT_PUBLIC_STRAPI_API_TOKEN || "";
+async function strapiFetch<T>(endpoint: string): Promise<T | null> {
+  try {
+    const res = await fetch(`${STRAPI_URL}${endpoint}`, {
+      headers: {
+        Authorization: `Bearer ${STRAPI_API_TOKEN}`,
+      },
+      cache: "no-store",
+    });
 
-export const fetchNavbar = async (): Promise<NavbarResponse | null> => {
-    try {
-      const res = await fetch(`${STRAPI_URL}/api/navbar?populate=*`, {
-        headers: {
-          Authorization: `Bearer ${STRAPI_API_TOKEN}`,
-        }
-      });
-  
-      if (!res.ok) {
-        console.error("Failed to fetch navbar items:", res.statusText);
-        return null;
-      }
-  
-      const data: NavbarResponse = await res.json();
-      console.log(data);
-      
-      return data;
-    } catch (error) {
-      console.error("Error fetching navbar:", error);
+    if (!res.ok) {
+      console.error(`Failed to fetch ${endpoint}: ${res.status} ${res.statusText}`);
       return null;
     }
-};
 
-
-export const fetchClients = async (): Promise<ClientsResponse | null> => {
-    console.log("token", process.env.NEXT_PUBLIC_STRAPI_API_TOKEN);
-
-    // /api/homepage?populate=*
-    // homepage?populate[sections][populate]=*
-    // /api/homepage?populate[sections][on][client.sections-clients][populate][Client][populate]=logo
-    try {
-        const res = await fetch(`${STRAPI_URL}/api/homepage?populate[sections][on][client.sections-clients][populate][Client][populate]=logo`, {
-          headers: {
-            Authorization: `Bearer ${STRAPI_API_TOKEN}`,
-          }
-        });
-    
-        if (!res.ok) {
-          console.error("Failed to fetch fetchClients:", res.statusText);
-          return null;
-        }
-    
-        const data = await res.json();
-        console.log("sasasasasasa===========", data);
-        
-        return data;
-      } catch (error) {
-        console.error("Error fetching fetchClients:", error);
-        return null;
-      }
+    return (await res.json()) as T;
+  } catch (error) {
+    console.error(`⚠️ Error fetching ${endpoint}:`, error);
+    return null;
+  }
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function getStrapiMediaUrl(media: any) {
-    if (!media) return null;
-    
-    const { url } = media.data?.attributes || media;
-    
-    if (url?.startsWith('/')) {
-      return `${STRAPI_URL}${url}`;
-    }
-    
-    return url;
-  }
+const populateQuery = (populate: string): string => `/api/homepage?populate${populate}`;
 
+export const fetchNavbar = (): Promise<NavbarResponse | null> =>
+  strapiFetch<NavbarResponse>(`/api/navbar${populateQuery("*")}`);
 
-  const fetchFooter = async() => {
-    const response = await fetch(`${STRAPI_URL}/api/footer?populate=*`, {
-      headers: {
-        'Authorization': `Bearer ${STRAPI_API_TOKEN}`,
-      },
-    });
+export const fetchHome = (): Promise<unknown> =>
+  strapiFetch<unknown>(`${populateQuery("[sections][populate]=*")}`);
 
-    if (!response.ok) {
-      throw new Error('Failed to fetch footer data');
-    }
+export const fetchClients = (): Promise<ClientsResponse | null> =>
+  strapiFetch<ClientsResponse>(
+    `${populateQuery("[sections][on][client.sections-clients][populate][Client][populate]=logo")}`,
+  );
 
-    const data = await response.json();
-    return data.data;
-  };
+export const fetchServices = (): Promise<ServicesResponse | null> =>
+  strapiFetch<ServicesResponse>(
+    `${populateQuery("[sections][on][service.sections-service][populate][service_details][populate]=*")}`,
+  );
 
+export const fetchContactForm = (): Promise<ContactFormResponse | null> =>
+  strapiFetch<ContactFormResponse>(
+    `${populateQuery("[sections][on][contact-form.sections-contact-form][populate][formfields][populate]=*")}`,
+  );
 
-const fetchGlobalSettings = async () => {
-    const response = await fetch(`${STRAPI_URL}/api/global-setting?populate=*`, {
-      headers: {
-        'Authorization': `Bearer ${STRAPI_API_TOKEN}`,
-      },
-    });
+export const fetchInsights = (): Promise<InsightSectionResponse | null> =>
+  strapiFetch<InsightSectionResponse>(
+    `${populateQuery("[sections][on][story.sections-insight-section][populate][items][populate]=*")}`,
+  );
 
-    if (!response.ok) {
-      throw new Error('Failed to fetch global settings');
-    }
+export const fetchTechnologyStack = (): Promise<TechnologyStackResponse | null> =>
+  strapiFetch<TechnologyStackResponse>(
+    `${populateQuery("[sections][on][service.sections-technology-stacks][populate][technology_stacks][populate][tool][populate]=icon")}`,
+  );
 
-    const data = await response.json();
-    return data.data;
-};
+export const fetchSuccessStories = (): Promise<SuccessStoriesResponse | null> =>
+  strapiFetch<SuccessStoriesResponse>(
+    `${populateQuery("[sections][on][story.sections-success-stories][populate][stories][populate]=*")}`,
+    // `${populateQuery("=*")}`,
 
-// eslint-disable-next-line import/no-anonymous-default-export
-export default { fetchNavbar, fetchFooter, fetchGlobalSettings, getStrapiMediaUrl, fetchClients };
+  );
+export const fetchTestimonial = (): Promise<TestimonialResponse | null> =>
+  strapiFetch<TestimonialResponse>(
+    `${populateQuery("[sections][on][client.sections-testimonials][populate][testimonial_items][populate]=company_logo")}`,
+  );
+
+export const fetchHeroContent = (): Promise<HeroContentSectionResponse | null> =>
+  strapiFetch<HeroContentSectionResponse>(
+    `${populateQuery("[sections][on][hero.sections-hero][populate]=*")}`,
+  );
+
+export function getStrapiMediaUrl(media: Media | null): string | null {
+  if (!media?.url) return null;
+  return media.url.startsWith("/") ? `${STRAPI_URL}${media.url}` : media.url;
+}
