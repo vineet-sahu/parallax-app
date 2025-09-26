@@ -33,23 +33,31 @@ if (!clients || clients.length === 0) {
 }
 
   return (
-    <div className="flex flex-wrap items-center justify-center gap-6 md:gap-12 w-full">
-      {clients.map((client) => (
-        <div key={client.id} className="flex items-center justify-center">
-          {client.logo ? (
-            <img 
-              className="max-h-16 w-auto object-contain" 
-              src={getStrapiMediaUrl(client.logo) as string} 
-              alt={client.logo.alternativeText || client.name}
-              title={client.name}
-            />
-          ) : (
-            <div className="flex items-center justify-center h-16 px-4 bg-gray-100 rounded">
-              <span className="text-gray-600 text-sm">{client.name}</span>
-            </div>
-          )}
-        </div>
-      ))}
-    </div>
+    <div
+    className={`grid gap-4 mx-auto`}
+    style={{
+      gridTemplateColumns: `repeat(${clients.length}, minmax(0, 1fr))`,
+    }}
+  >
+    {clients.map((client) => (
+      <div
+        key={client.id}
+        className="flex items-center justify-center h-24 rounded"
+      >
+        {client.logo ? (
+          <img
+            className="w-auto object-contain"
+            src={getStrapiMediaUrl(client.logo) as string}
+            alt={client.logo.alternativeText || client.name}
+            title={client.name}
+          />
+        ) : (
+          <div className="flex items-center justify-center h-16 px-4 bg-gray-100 rounded">
+            <span className="text-gray-600 text-sm">{client.name}</span>
+          </div>
+        )}
+      </div>
+    ))}
+  </div>
   );
 }

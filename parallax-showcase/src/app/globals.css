@@ -1,16 +1,26 @@
 @import "tailwindcss";
 
 :root {
-  --background: #162455;
+  --background: #111525;
   --foreground: #FFFFFF;
+  --font-sora: 'Sora', sans-serif;
+
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sora);
+}
+
+p, h3, h1, h2, h4, h5, h6, a, span, li, button {
+  font-family: var(--font-sora);
 }
 
 html {
   scroll-behavior: smooth;
+}
+
+.main {
+  width: 100%;
 }

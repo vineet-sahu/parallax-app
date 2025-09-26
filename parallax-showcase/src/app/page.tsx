@@ -15,28 +15,28 @@ export default function Home() {
     <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
     <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
       <Hero />
-      <hr className="h-px my-8 bg-gray-200 border-0 bg-white w-full opacity-20" />
+      <hr className="my-8 border-t-1 border-dashed border-gray-400 w-full opacity-40" />
       <Client />
 
-      <hr className="h-px my-8 bg-gray-200 border-0 bg-white  w-full" />
+      <hr className="my-8 border-t-1 border-dashed border-gray-400 w-full opacity-40" />
 
       <Services />
 
-      <hr className="h-px my-8 bg-gray-200 border-0 bg-white w-full opacity-20" />
+      <hr className="my-8 border-t-1 border-dashed border-gray-400 w-full opacity-40" />
 
       <Testimonial />
 
-      <hr className="h-px my-8 bg-gray-200 border-0 bg-white w-full opacity-20" />
+      <hr className="my-8 border-t-1 border-dashed border-gray-400 w-full opacity-40" />
 
       <SuccessStories />
-      <hr className="h-px my-8 bg-gray-200 border-0 bg-white w-full opacity-20" />
+      <hr className="my-8 border-t-1 border-dashed border-gray-400 w-full opacity-40" />
       
       <TechnologyStack />
-      <hr className="h-px my-8 bg-gray-200 border-0 bg-white w-full opacity-20" />
+      <hr className="my-8 border-t-1 border-dashed border-gray-400 w-full opacity-40" />
 
       <Insights />
 
-      <hr className="h-px my-8 bg-gray-200 border-0 bg-white w-full opacity-20" />
+      <hr className="my-8 border-t-1 border-dashed border-gray-400 w-full opacity-40" />
 
       <Contact />
     </main>

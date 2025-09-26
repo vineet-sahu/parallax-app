@@ -17,6 +17,7 @@ import { Logo } from "./Common";
     buttonText?: string | null;
     buttonLink?: string | null;
     icon?: Logo | null;
+    bgColor?: string | null;
   }
   
 

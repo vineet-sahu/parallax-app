@@ -15,7 +15,7 @@ export const Insights = () => {
 
   return (
     <div className="w-full text-white md:py-16 md:px-6">
-      <div className="max-w-7xl mx-auto">
+      <div className="mr-auto">
 
         
         <div className="mb-12 text-center lg:text-left">
@@ -24,7 +24,7 @@ export const Insights = () => {
         </div>
 
         
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-[repeat(auto-fill_,minmax(330px,1fr))] gap-[22px] max-sm:grid-cols-[repeat(auto-fill_,minmax(300px,1fr))]">
           {insightsData.items.map((item) => {
         
             const imageUrl = getStrapiMediaUrl(item.image as Media);
@@ -35,7 +35,7 @@ export const Insights = () => {
                   <img
                     src={imageUrl}
                     alt={item.title}
-                    className="w-full h-52 object-cover"
+                    className="w-full p-6 rounded pb-0"
                   />
                 )}
                 <div className="p-6 flex flex-col flex-1">

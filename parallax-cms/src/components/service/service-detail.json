@@ -26,6 +26,9 @@
     },
     "buttonLink": {
       "type": "string"
+    },
+    "bgColor": {
+      "type": "string"
     }
   },
   "config": {}

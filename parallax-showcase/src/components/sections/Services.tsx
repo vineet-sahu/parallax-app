@@ -1,4 +1,9 @@
 import { useAppContext } from "@/context/ParallaxContext";
+import cardImage1 from "@/assets/cardImage1.png";
+import cardImage2 from "@/assets/cardImage2.png";
+import cardImage3 from "@/assets/cardImage3.webp";
+import cardImage4 from "@/assets/cardImage4.png";
+import { getStrapiMediaUrl } from "@/lib/strapi";
 
 export const Services = () => {
   const {
@@ -22,37 +27,61 @@ export const Services = () => {
       </div>
 
       
-      <div className="grid gap-6 items-stretch grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-        {servicesData.service_details?.map((service) => (
+      <div className="grid grid-cols-[repeat(auto-fill,_minmax(308px,1fr))] gap-4 max-md:gap-6">
+      {servicesData.service_details.map((card, index) => (
+        <div key={index} className="relative" style={{ top: 0, opacity: 1 }}>
           <div
-            key={service.id}
-            className="bg-blue-700 p-6 rounded-xl shadow-lg flex flex-col justify-between h-full"
+            className="relative h-[436px] gap-4 rounded-xl px-5 py-8 bg-sky-500/50"
+            style={{ backgroundColor: card?.bgColor || "#00A5EF" }}
           >
-            <span className="text-sm bg-white/10 px-3 py-1 rounded-full w-max mb-4">
+            <img
+              alt="Image Card"
+              loading="lazy"
+              width={149.28}
+              height={177}
+              decoding="async"
+              className="absolute right-5 top-8"
+              style={{ color: "transparent" }}
+              src={getStrapiMediaUrl(card.icon) as string}
+            />
+
+            <p className="flex h-8 w-[97px] items-center justify-center rounded-[50px] border border-[#ffffff1a] bg-[#ffffff0d] text-[10px]">
               Our Services
-            </span>
+            </p>
 
-            
-            <h3 className="mt-12 text-4xl font-bold mb-3 break-words">
-              {service.title}
-            </h3>
+            <div className="mt-[48px] flex min-h-[292px] flex-col justify-between">
+              <div className="space-y-4">
+                <p className="w-[80%] text-2xl font-semibold leading-[26px]">
+                  {card.title}
+                </p>
+                <p className="font-inter text-sm font-medium text-[#ffffffcc]">
+                  {card.description}
+                </p>
+              </div>
 
-            
-            <p className="text-gray-200 text-base mb-6">{service.description}</p>
-
-            
-            {service.buttonLink && (
-              <a
-                href={service.buttonLink || "#"}
-                className="text-sm mt-auto inline-flex items-center justify-center px-1 py-3 bg-black text-white rounded-full font-medium hover:bg-gray-800 sm:text-xs"
-              >
-                {service.buttonText || "Talk to a Product Expert"}
-                <span className="ml-2">↗</span>
-              </a>
-            )}
+              <button className="mx-auto flex h-14 w-full items-center justify-center gap-2 rounded-[80px] bg-black px-2 py-3 text-xs">
+                <p>Talk to a Product Expert</p>
+                <svg
+                  stroke="currentColor"
+                  fill="none"
+                  strokeWidth="2"
+                  viewBox="0 0 24 24"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="h-4 w-4"
+                  height="1em"
+                  width="1em"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <line x1="7" y1="17" x2="17" y2="7" />
+                  <polyline points="7 7 17 7 17 17" />
+                </svg>
+              </button>
+            </div>
           </div>
-        ))}
-      </div>
+        </div>
+      ))}
+    </div>
     </>
   );
 };

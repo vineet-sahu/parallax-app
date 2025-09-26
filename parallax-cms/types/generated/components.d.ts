@@ -80,6 +80,9 @@ export interface ContactFormSectionsContactForm extends Struct.ComponentSchema {
   };
   attributes: {
     buttonText: Schema.Attribute.String;
+    contactUsBG: Schema.Attribute.Media<
+      'images' | 'files' | 'videos' | 'audios'
+    >;
     email: Schema.Attribute.String;
     form_title: Schema.Attribute.String;
     formfields: Schema.Attribute.Component<'contact-form.contact-form', true>;
@@ -179,6 +182,7 @@ export interface ServiceServiceDetail extends Struct.ComponentSchema {
     displayName: 'ServiceDetail';
   };
   attributes: {
+    bgColor: Schema.Attribute.String;
     buttonLink: Schema.Attribute.String;
     buttonText: Schema.Attribute.String;
     description: Schema.Attribute.String;

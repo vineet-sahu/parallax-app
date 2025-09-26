@@ -40,6 +40,16 @@
     },
     "form_title": {
       "type": "string"
+    },
+    "contactUsBG": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
     }
   },
   "config": {}

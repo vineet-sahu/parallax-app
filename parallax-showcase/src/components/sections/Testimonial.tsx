@@ -15,41 +15,57 @@ export const Testimonial = () => {
   if (!testimonialSection) return null;
 
   return (
-    <section className="text-white md:py-16 md:px-6 md:px-16 w-full">
-      <div className="md:text-center max-w-3xl mx-auto mb-12">
-        <h2 className="text-3xl md:text-4xl font-bold">OUR HAPPY CLIENTS</h2>
+    <section className="text-white md:py-16 w-full">
+      <div className="max-w-3xl mr-auto mb-12">
+        <h2 className="text-3xl md:text-4xl font-bold">{testimonialSection.title}</h2>
         <p className="mt-4 text-gray-300">
-          Dummy ipsum dolor sit amet, consectetur adipiscing elit
+          {testimonialSection.description}
         </p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div className="grid grid-cols-[repeat(auto-fill,_minmax(340px,1fr))] gap-4 max-md:gap-6"
+      >
         {testimonialSection.testimonial_items.map((item) => (
-          <div key={item.id} className="bg-[#141827] rounded-xl p-6 shadow-lg relative">
-            <span className="text-4xl text-teal-400 font-serif">“</span>
-            <p className="mt-4 text-gray-200 text-sm leading-relaxed">{item.quote}</p>
+        <div
+        key={item.id}
+        className="h-[450px] rounded-[20px] bg-[#bdd5f40d] p-6 backdrop-blur-[40px] transition-all duration-200 hover:bg-[#bdd5f433] relative"
+      >
+        {/* Quote Icon */}
+        <span className="text-4xl text-teal-400 font-serif">“</span>
 
-            <div className="mt-6">
-              <h4 className="font-bold">{item.author_name}</h4>
-              <p className="text-gray-400 text-sm">
-                ({item.author_designation}, {item.company})
-              </p>
-            </div>
+        {/* Main Quote */}
+        <div className="mt-2.5 flex h-[282px] flex-col justify-between border-b border-[#ffffff1a] pb-6">
+          <p className="min-h-[192px] font-medium">{item.quote}</p>
 
-            <hr className="my-6 bg-gray-400 opacity-10" />
-
-            <div className="text-xs text-gray-400">
-              <p>Star Rating - {item.star_rating} / 5</p>
-              <p>Project - {item.project}</p>
-              <p>Country - {item.country}</p>
-            </div>
-
-            {item.company_logo?.url && (
-              <div className="absolute bottom-4 right-6">
-                <img src={getStrapiMediaUrl(item.company_logo) as string} alt={item.company} className="h-6 object-contain" />
-              </div>
-            )}
+          {/* Author Info */}
+          <div className="h-[42px] w-full space-y-1 text-end">
+            <p className="text-sm font-bold">{item.author_name}</p>
+            <p className="text-xs text-[#ffffff99]">
+              ({item.author_designation}, {item.company})
+            </p>
           </div>
+        </div>
+
+        {/* Footer Details */}
+        <div className="mt-6 flex h-[54px] items-center justify-between">
+          <div className="text-[10px] font-normal text-[#ffffff99] space-y-1">
+            <p className="leading-[18px]">Star Rating - {item.star_rating} / 5</p>
+            <p className="leading-[18px]">Project - {item.project}</p>
+            <p className="leading-[18px]">Country - {item.country}</p>
+          </div>
+
+          {/* Company Logo */}
+          {item.company_logo?.url && (
+            <img
+              alt={item.company}
+              width={63}
+              height={24}
+              className="h-6 w-[63px]"
+              src={getStrapiMediaUrl(item.company_logo)}
+            />
+          )}
+        </div>
+      </div>
         ))}
       </div>
 

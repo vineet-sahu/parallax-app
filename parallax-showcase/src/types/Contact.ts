@@ -16,6 +16,7 @@ export interface ContactFormSection {
   form_title: string;
   formfields: ContactFormField[];
   icon?: Logo | null;
+  contactUsBG?: Logo | null;
 }
 
 export interface ContactFormField {

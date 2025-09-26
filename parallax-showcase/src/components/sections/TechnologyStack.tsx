@@ -16,7 +16,7 @@ export const TechnologyStack = () => {
 
   return (
     <div className="w-full text-white md:py-16 md:px-6">
-      <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+      <div className="mr-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
         
         <div className="bg-gray-800 rounded-3xl p-10 relative overflow-hidden">
           <h2 className="text-4xl font-bold uppercase leading-snug">

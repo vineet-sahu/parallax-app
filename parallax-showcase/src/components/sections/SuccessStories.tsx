@@ -17,7 +17,7 @@ export const SuccessStories = ()=>{
       
 return <>   
 <div className="text-white md:py-16 md:px-6 w-full">
-      <div className="max-w-7xl mx-auto">
+      <div className="mar-auto">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               <div className="mb-12">
                   <h2 className="text-4xl font-bold uppercase">{successStoryData.heading}</h2>
