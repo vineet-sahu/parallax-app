@@ -1,9 +1,7 @@
 import { useAppContext } from "@/context/ParallaxContext";
-import cardImage1 from "@/assets/cardImage1.png";
-import cardImage2 from "@/assets/cardImage2.png";
-import cardImage3 from "@/assets/cardImage3.webp";
-import cardImage4 from "@/assets/cardImage4.png";
 import { getStrapiMediaUrl } from "@/lib/strapi";
+import { Media } from "@/utils";
+/* eslint-disable @next/next/no-img-element */
 
 export const Services = () => {
   const {
@@ -17,7 +15,7 @@ export const Services = () => {
   if (!servicesData) return null;
 
   return (
-    <>
+    <div className="section" id={(data?.data?.sections || [])[0]?.sectionId}>
       
       <div className="max-w-3xl mb-12">
         <h2 className="text-3xl md:text-4xl font-bold">
@@ -42,7 +40,7 @@ export const Services = () => {
               decoding="async"
               className="absolute right-5 top-8"
               style={{ color: "transparent" }}
-              src={getStrapiMediaUrl(card.icon) as string}
+              src={getStrapiMediaUrl(card.icon as Media) as string}
             />
 
             <p className="flex h-8 w-[97px] items-center justify-center rounded-[50px] border border-[#ffffff1a] bg-[#ffffff0d] text-[10px]">
@@ -82,6 +80,6 @@ export const Services = () => {
         </div>
       ))}
     </div>
-    </>
+    </div>
   );
 };

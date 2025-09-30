@@ -14,12 +14,12 @@ export const Insights = () => {
   if (!insightsData) return null;
 
   return (
-    <div className="w-full text-white md:py-16 md:px-6">
+    <div className="section w-full text-white md:py-16 md:px-6" id={(data?.data?.sections || [])[0]?.sectionId}>
       <div className="mr-auto">
 
         
         <div className="mb-12 text-center lg:text-left">
-          <h2 className="text-4xl font-bold uppercase">{insightsData.title}</h2>
+          <h2 className="text-4xl font-bold">{insightsData.title}</h2>
           <p className="mt-2 text-gray-400">{insightsData.description}</p>
         </div>
 

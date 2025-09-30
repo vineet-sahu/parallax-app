@@ -1,12 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { Logo } from "./Common";
+import { Logo, Section } from "./Common";
 
 export interface TechnologyStackSectionFields {
   sections: TechnologyStackSection[];
 }
 
-export interface TechnologyStackSection {
+export interface TechnologyStackSection  extends Section{
   __component: "service.sections-technology-stacks";
   id: number;
   heading: string;

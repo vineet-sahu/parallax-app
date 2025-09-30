@@ -1,8 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { Logo } from "./Common";
-
-export interface InsightSection {
+import { Logo, Section } from "./Common";
+export interface InsightSection extends Section {
   __component: "story.sections-insight-section";
   id: number;
   title: string;

@@ -15,6 +15,9 @@
       "type": "component",
       "component": "story.insights-section-items",
       "repeatable": true
+    },
+    "sectionId": {
+      "type": "string"
     }
   },
   "config": {}

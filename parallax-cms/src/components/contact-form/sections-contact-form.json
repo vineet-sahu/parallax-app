@@ -50,6 +50,9 @@
         "videos",
         "audios"
       ]
+    },
+    "sectionId": {
+      "type": "string"
     }
   },
   "config": {}

@@ -15,6 +15,9 @@
       "type": "component",
       "component": "client.testimonial-item",
       "repeatable": true
+    },
+    "sectionId": {
+      "type": "string"
     }
   },
   "config": {}

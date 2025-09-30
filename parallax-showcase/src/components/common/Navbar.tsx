@@ -58,7 +58,10 @@ export default function Navbar() {
           })}
         </nav>
 
-        <div className="ml-auto flex items-center gap-8 max-lg:gap-4"><a className="text-xs font-medium" href="">About Us</a><a className="h-full w-[115px] cursor-pointer text-nowrap rounded-[100px] bg-[#4380FF] px-5 py-2.5 text-sm font-medium max-lg:w-fit max-lg:px-2.5 max-lg:text-xs" href="/#ContactUS">Contact Us</a></div>
+        <div className="ml-auto flex items-center gap-8 max-lg:gap-4">
+          <Link className="text-xs font-medium" href="#HeroSection">About Us</Link>
+          <Link className="h-full w-[115px] cursor-pointer text-nowrap rounded-[100px] bg-[#4380FF] px-5 py-2.5 text-sm font-medium max-lg:w-fit max-lg:px-2.5 max-lg:text-xs" href="/#contactFormSection">Contact Us</Link>
+          </div>
 
         <button
           onClick={() => setIsOpen(!isOpen)}

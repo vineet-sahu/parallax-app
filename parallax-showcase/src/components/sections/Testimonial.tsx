@@ -15,7 +15,7 @@ export const Testimonial = () => {
   if (!testimonialSection) return null;
 
   return (
-    <section className="text-white md:py-16 w-full">
+    <section className="text-white md:py-16 w-full" id={(data?.data?.sections || [])[0]?.sectionId}>
       <div className="max-w-3xl mr-auto mb-12">
         <h2 className="text-3xl md:text-4xl font-bold">{testimonialSection.title}</h2>
         <p className="mt-4 text-gray-300">
@@ -23,7 +23,14 @@ export const Testimonial = () => {
         </p>
       </div>
 
-      <div className="grid grid-cols-[repeat(auto-fill,_minmax(340px,1fr))] gap-4 max-md:gap-6"
+<div className="container">
+
+      <div className="grid gap-6 justify-items-center
+          grid grid-cols-[repeat(auto-fill,minmax(250px,1fr))] gap-6 
+          sm:grid-cols-[repeat(auto-fill,minmax(200px,1fr))] 
+          md:grid-cols-[repeat(auto-fill,minmax(280px,1fr))] 
+          lg:grid-cols-[repeat(auto-fill,minmax(340px,1fr))]
+      "
       >
         {testimonialSection.testimonial_items.map((item) => (
         <div
@@ -61,13 +68,14 @@ export const Testimonial = () => {
               width={63}
               height={24}
               className="h-6 w-[63px]"
-              src={getStrapiMediaUrl(item.company_logo)}
+              src={getStrapiMediaUrl(item.company_logo) as string}
             />
           )}
         </div>
       </div>
         ))}
       </div>
+</div>
 
       <div className="flex justify-end gap-4 mt-8">
         <button className="w-10 h-10 rounded-full bg-gray-700 hover:bg-gray-600 flex items-center justify-center">

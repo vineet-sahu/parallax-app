@@ -15,6 +15,9 @@
       "type": "component",
       "component": "service.service-detail",
       "repeatable": true
+    },
+    "sectionId": {
+      "type": "string"
     }
   },
   "config": {}

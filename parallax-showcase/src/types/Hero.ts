@@ -14,5 +14,6 @@ export interface HeroContentSectionFields {
 
 export interface HeroContentSection extends HeroContent{
   __component: "client.sections-HeroContents";
+  sectionId?: string;
   id: number;
 }

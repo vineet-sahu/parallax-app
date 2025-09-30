@@ -33,4 +33,5 @@ export interface Logo {
     __component: string;
     id: number;
     heading: string;
+    sectionId?: string;
   }

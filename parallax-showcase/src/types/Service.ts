@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { Logo } from "./Common";
+import { Logo, Section } from "./Common";
   
-  export interface ServiceSection {
+  export interface ServiceSection extends Section{
     __component: "service.sections-service";
     id: number;
     title: string;

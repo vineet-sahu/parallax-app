@@ -20,6 +20,7 @@ export interface ClientSectionsClients extends Struct.ComponentSchema {
   attributes: {
     Client: Schema.Attribute.Component<'client.clients', true>;
     heading: Schema.Attribute.String;
+    sectionId: Schema.Attribute.String;
   };
 }
 
@@ -30,6 +31,7 @@ export interface ClientSectionsTestimonials extends Struct.ComponentSchema {
   };
   attributes: {
     description: Schema.Attribute.Text;
+    sectionId: Schema.Attribute.String;
     testimonial_items: Schema.Attribute.Component<
       'client.testimonial-item',
       true
@@ -89,6 +91,7 @@ export interface ContactFormSectionsContactForm extends Struct.ComponentSchema {
     heading: Schema.Attribute.String;
     icon: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
     phone: Schema.Attribute.String;
+    sectionId: Schema.Attribute.String;
     subheading: Schema.Attribute.String;
     url: Schema.Attribute.String;
   };
@@ -107,6 +110,7 @@ export interface HeroSectionsHero extends Struct.ComponentSchema {
     description: Schema.Attribute.Text;
     mainTitle: Schema.Attribute.Component<'main-title.main-title', false>;
     preTitle: Schema.Attribute.String;
+    sectionId: Schema.Attribute.String;
     stats: Schema.Attribute.Component<'stat.stats', true>;
     tagline: Schema.Attribute.String;
   };
@@ -155,6 +159,7 @@ export interface ServiceSectionsService extends Struct.ComponentSchema {
   };
   attributes: {
     description: Schema.Attribute.Text;
+    sectionId: Schema.Attribute.String;
     service_details: Schema.Attribute.Component<'service.service-detail', true>;
     title: Schema.Attribute.String;
   };
@@ -169,6 +174,7 @@ export interface ServiceSectionsTechnologyStacks
   attributes: {
     description: Schema.Attribute.Text;
     heading: Schema.Attribute.String;
+    sectionId: Schema.Attribute.String;
     technology_stacks: Schema.Attribute.Component<
       'service.technology-stack',
       true
@@ -244,6 +250,7 @@ export interface StorySectionsInsightSection extends Struct.ComponentSchema {
   attributes: {
     description: Schema.Attribute.Text;
     items: Schema.Attribute.Component<'story.insights-section-items', true>;
+    sectionId: Schema.Attribute.String;
     title: Schema.Attribute.String;
   };
 }
@@ -255,6 +262,7 @@ export interface StorySectionsSuccessStories extends Struct.ComponentSchema {
   };
   attributes: {
     heading: Schema.Attribute.String;
+    sectionId: Schema.Attribute.String;
     stories: Schema.Attribute.Component<'story.stories', true>;
     subheading: Schema.Attribute.Text;
   };

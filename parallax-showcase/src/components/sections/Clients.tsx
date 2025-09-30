@@ -34,7 +34,8 @@ if (!clients || clients.length === 0) {
 
   return (
     <div
-    className={`grid gap-4 mx-auto`}
+    id={(data?.data?.sections || [])[0]?.sectionId}
+    className={`grid gap-4 mx-auto section`}
     style={{
       gridTemplateColumns: `repeat(${clients.length}, minmax(0, 1fr))`,
     }}

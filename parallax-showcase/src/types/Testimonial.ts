@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { Logo } from "./Common";
+import { Logo, Section } from "./Common";
 
 export interface Testimonial {
     id: number;
@@ -20,7 +20,7 @@ export interface TestimonialSectionFields {
   sections: TestimonialSection[];
 }
 
-export interface TestimonialSection {
+export interface TestimonialSection extends Section {
   __component: "client.sections-testimonials";
   id: number;
   title?: string | null;
