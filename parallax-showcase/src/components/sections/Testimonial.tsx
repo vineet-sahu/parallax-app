@@ -1,81 +1,99 @@
 import { useAppContext } from "@/context/ParallaxContext";
 import { getStrapiMediaUrl } from "@/lib/strapi";
 import { TestimonialSection } from "@/types/Testimonial";
-/* eslint-disable @next/next/no-img-element */
+import Image from "next/image";
+import { memo, useMemo } from "react";
 
-export const Testimonial = () => {
+const Testimonial = () => {
   const {
     testimonial: { isLoading, error, data },
   } = useAppContext();
 
-  const testimonialSection: TestimonialSection | undefined = data?.data?.sections?.[0];
+  const testimonialSection: TestimonialSection | undefined = useMemo(
+    () => data?.data?.sections?.[0],
+    [data],
+  );
 
-  if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>Error loading testimonialSection</div>;
-  if (!testimonialSection) return null;
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center py-10 animate-pulse text-gray-400">
+        Loading testimonial section...
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="flex justify-center items-center py-10 text-red-500">
+        Error loading testimonial section.
+      </div>
+    );
+  }
+
+  if (!testimonialSection?.testimonial_items?.length) {
+    return (
+      <div className="flex justify-center items-center py-10 text-gray-400">
+        No testimonial section available.
+      </div>
+    );
+  }
 
   return (
     <section className="text-white md:py-16 w-full" id={(data?.data?.sections || [])[0]?.sectionId}>
       <div className="max-w-3xl mr-auto mb-12">
         <h2 className="text-3xl md:text-4xl font-bold">{testimonialSection.title}</h2>
-        <p className="mt-4 text-gray-300">
-          {testimonialSection.description}
-        </p>
+        <p className="mt-4 text-gray-300">{testimonialSection.description}</p>
       </div>
 
-<div className="container">
-
-      <div className="grid gap-6 justify-items-center
-          grid grid-cols-[repeat(auto-fill,minmax(250px,1fr))] gap-6 
-          sm:grid-cols-[repeat(auto-fill,minmax(200px,1fr))] 
-          md:grid-cols-[repeat(auto-fill,minmax(280px,1fr))] 
+      <div className="container">
+        <div
+          className="grid gap-6 justify-items-center
+          grid grid-cols-[repeat(auto-fill,minmax(250px,1fr))] gap-6
+          sm:grid-cols-[repeat(auto-fill,minmax(200px,1fr))]
+          md:grid-cols-[repeat(auto-fill,minmax(280px,1fr))]
           lg:grid-cols-[repeat(auto-fill,minmax(340px,1fr))]
       "
-      >
-        {testimonialSection.testimonial_items.map((item) => (
-        <div
-        key={item.id}
-        className="h-[450px] rounded-[20px] bg-[#bdd5f40d] p-6 backdrop-blur-[40px] transition-all duration-200 hover:bg-[#bdd5f433] relative"
-      >
-        {/* Quote Icon */}
-        <span className="text-4xl text-teal-400 font-serif">“</span>
+        >
+          {testimonialSection.testimonial_items.map((item) => (
+            <div
+              key={item.id}
+              className="h-[450px] rounded-[20px] bg-[#bdd5f40d] p-6 backdrop-blur-[40px] transition-all duration-200 hover:bg-[#bdd5f433] relative"
+            >
+              <span className="text-4xl text-teal-400 font-serif">“</span>
 
-        {/* Main Quote */}
-        <div className="mt-2.5 flex h-[282px] flex-col justify-between border-b border-[#ffffff1a] pb-6">
-          <p className="min-h-[192px] font-medium">{item.quote}</p>
+              <div className="mt-2.5 flex h-[282px] flex-col justify-between border-b border-[#ffffff1a] pb-6">
+                <p className="min-h-[192px] font-medium">{item.quote}</p>
 
-          {/* Author Info */}
-          <div className="h-[42px] w-full space-y-1 text-end">
-            <p className="text-sm font-bold">{item.author_name}</p>
-            <p className="text-xs text-[#ffffff99]">
-              ({item.author_designation}, {item.company})
-            </p>
-          </div>
-        </div>
+                <div className="h-[42px] w-full space-y-1 text-end">
+                  <p className="text-sm font-bold">{item.author_name}</p>
+                  <p className="text-xs text-[#ffffff99]">
+                    ({item.author_designation}, {item.company})
+                  </p>
+                </div>
+              </div>
 
-        {/* Footer Details */}
-        <div className="mt-6 flex h-[54px] items-center justify-between">
-          <div className="text-[10px] font-normal text-[#ffffff99] space-y-1">
-            <p className="leading-[18px]">Star Rating - {item.star_rating} / 5</p>
-            <p className="leading-[18px]">Project - {item.project}</p>
-            <p className="leading-[18px]">Country - {item.country}</p>
-          </div>
+              <div className="mt-6 flex h-[54px] items-center justify-between">
+                <div className="text-[10px] font-normal text-[#ffffff99] space-y-1">
+                  <p className="leading-[18px]">Star Rating - {item.star_rating} / 5</p>
+                  <p className="leading-[18px]">Project - {item.project}</p>
+                  <p className="leading-[18px]">Country - {item.country}</p>
+                </div>
 
-          {/* Company Logo */}
-          {item.company_logo?.url && (
-            <img
-              alt={item.company}
-              width={63}
-              height={24}
-              className="h-6 w-[63px]"
-              src={getStrapiMediaUrl(item.company_logo) as string}
-            />
-          )}
+                {item.company_logo?.url && (
+                  <Image
+                    alt={item.company}
+                    width={63}
+                    height={24}
+                    className="h-6 w-[63px]"
+                    src={getStrapiMediaUrl(item.company_logo) as string}
+                    quality={90}
+                  />
+                )}
+              </div>
+            </div>
+          ))}
         </div>
       </div>
-        ))}
-      </div>
-</div>
 
       <div className="flex justify-end gap-4 mt-8">
         <button className="w-10 h-10 rounded-full bg-gray-700 hover:bg-gray-600 flex items-center justify-center">
@@ -88,3 +106,5 @@ export const Testimonial = () => {
     </section>
   );
 };
+
+export default memo(Testimonial);

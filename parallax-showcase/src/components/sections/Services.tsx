@@ -1,85 +1,112 @@
+"use client";
+
+import { memo, useMemo } from "react";
 import { useAppContext } from "@/context/ParallaxContext";
 import { getStrapiMediaUrl } from "@/lib/strapi";
 import { Media } from "@/utils";
-/* eslint-disable @next/next/no-img-element */
+import Image from "next/image";
 
-export const Services = () => {
+const Services = () => {
   const {
     services: { isLoading, error, data },
   } = useAppContext();
 
-  const servicesData = data?.data?.sections?.[0];
+  const servicesData = useMemo(() => data?.data?.sections?.[0], [data]);
+  const sectionId = servicesData?.sectionId;
 
-  if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>Error loading services</div>;
-  if (!servicesData) return null;
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center py-10 animate-pulse text-gray-400">
+        Loading services...
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="flex justify-center items-center py-10 text-red-500">
+        Error loading services.
+      </div>
+    );
+  }
+
+  if (!servicesData?.service_details?.length) {
+    return (
+      <div className="flex justify-center items-center py-10 text-gray-400">
+        No services available.
+      </div>
+    );
+  }
 
   return (
-    <div className="section" id={(data?.data?.sections || [])[0]?.sectionId}>
-      
+    <section id={sectionId} className="section">
       <div className="max-w-3xl mb-12">
-        <h2 className="text-3xl md:text-4xl font-bold">
-          {servicesData.title}
-        </h2>
-        <p className="mt-4 text-gray-300">{servicesData.description}</p>
+        <h2 className="text-3xl md:text-4xl font-bold">{servicesData.title}</h2>
+        {servicesData.description && (
+          <p className="mt-4 text-gray-300">{servicesData.description}</p>
+        )}
       </div>
 
-      
-      <div className="grid grid-cols-[repeat(auto-fill,_minmax(308px,1fr))] gap-4 max-md:gap-6">
-      {servicesData.service_details.map((card, index) => (
-        <div key={index} className="relative" style={{ top: 0, opacity: 1 }}>
-          <div
-            className="relative h-[436px] gap-4 rounded-xl px-5 py-8 bg-sky-500/50"
-            style={{ backgroundColor: card?.bgColor || "#00A5EF" }}
-          >
-            <img
-              alt="Image Card"
-              loading="lazy"
-              width={149.28}
-              height={177}
-              decoding="async"
-              className="absolute right-5 top-8"
-              style={{ color: "transparent" }}
-              src={getStrapiMediaUrl(card.icon as Media) as string}
-            />
+      <div className="grid grid-cols-[repeat(auto-fill,_minmax(308px,1fr))] gap-6">
+        {servicesData.service_details.map((card) => {
+          const imageUrl = getStrapiMediaUrl(card.icon as Media);
 
-            <p className="flex h-8 w-[97px] items-center justify-center rounded-[50px] border border-[#ffffff1a] bg-[#ffffff0d] text-[10px]">
-              Our Services
-            </p>
+          return (
+            <article
+              key={card.id || card.title}
+              className="relative h-[436px] rounded-xl p-6 md:p-8 bg-sky-500/50 flex flex-col justify-between overflow-hidden shadow-md transition-transform hover:scale-[1.02] hover:shadow-lg duration-300"
+              style={{ backgroundColor: card?.bgColor || "#00A5EF" }}
+            >
+              {imageUrl && (
+                <Image
+                  src={imageUrl}
+                  alt={card.title || "Service icon"}
+                  width={149}
+                  height={177}
+                  loading="lazy"
+                  className="absolute right-5 top-6 object-contain"
+                  quality={85}
+                />
+              )}
 
-            <div className="mt-[48px] flex min-h-[292px] flex-col justify-between">
-              <div className="space-y-4">
-                <p className="w-[80%] text-2xl font-semibold leading-[26px]">
-                  {card.title}
-                </p>
-                <p className="font-inter text-sm font-medium text-[#ffffffcc]">
-                  {card.description}
-                </p>
-              </div>
+              <p className="flex h-8 w-fit px-3 items-center justify-center rounded-full border border-[#ffffff1a] bg-[#ffffff0d] text-[10px] text-white">
+                Our Services
+              </p>
 
-              <button className="mx-auto flex h-14 w-full items-center justify-center gap-2 rounded-[80px] bg-black px-2 py-3 text-xs">
-                <p>Talk to a Product Expert</p>
-                <svg
-                  stroke="currentColor"
-                  fill="none"
-                  strokeWidth="2"
-                  viewBox="0 0 24 24"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="h-4 w-4"
-                  height="1em"
-                  width="1em"
-                  xmlns="http://www.w3.org/2000/svg"
+              <div className="mt-10 flex flex-col flex-1 justify-between relative z-10">
+                <div className="space-y-4">
+                  <h3 className="text-2xl font-semibold leading-tight text-white">{card.title}</h3>
+                  <p className="font-inter text-sm font-medium text-[#ffffffcc]">
+                    {card.description}
+                  </p>
+                </div>
+
+                <button
+                  type="button"
+                  className="mt-8 flex items-center justify-center gap-2 rounded-full bg-black px-4 py-3 text-xs text-white hover:bg-gray-900 transition"
                 >
-                  <line x1="7" y1="17" x2="17" y2="7" />
-                  <polyline points="7 7 17 7 17 17" />
-                </svg>
-              </button>
-            </div>
-          </div>
-        </div>
-      ))}
-    </div>
-    </div>
+                  <span>Talk to a Product Expert</span>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-4 w-4"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    strokeWidth={2}
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <line x1="7" y1="17" x2="17" y2="7" />
+                    <polyline points="7 7 17 7 17 17" />
+                  </svg>
+                </button>
+              </div>
+            </article>
+          );
+        })}
+      </div>
+    </section>
   );
 };
+
+export default memo(Services);

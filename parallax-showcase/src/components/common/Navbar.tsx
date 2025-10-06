@@ -12,7 +12,7 @@ export default function Navbar() {
   if (navbar.error) return <div>Error loading navbar</div>;
 
   const navItems = navbar.data?.data?.menuItems || [];
- 
+
   return (
     <header className="fixed top-0 left-0 w-full bg-[#010201] backdrop-blur-md z-50">
       <div className="max-w-7xl mx-auto flex items-center justify-between px-6 py-4">
@@ -44,29 +44,33 @@ export default function Navbar() {
           />
         </div>
 
-
         <nav className="hidden md:flex gap-8">
           {navItems.map((item) => {
             const href = item.url.startsWith("/") ? `#${item.url.replace("/", "")}` : item.url;
-            return <Link
-              key={item.label}
-              href={href}
-              className="text-white hover:text-purple-400 transition"
-            >
-              {item.label}
-            </Link>
+            return (
+              <Link
+                key={item.label}
+                href={href}
+                className="text-white hover:text-purple-400 transition"
+              >
+                {item.label}
+              </Link>
+            );
           })}
         </nav>
 
         <div className="ml-auto flex items-center gap-8 max-lg:gap-4">
-          <Link className="text-xs font-medium" href="#HeroSection">About Us</Link>
-          <Link className="h-full w-[115px] cursor-pointer text-nowrap rounded-[100px] bg-[#4380FF] px-5 py-2.5 text-sm font-medium max-lg:w-fit max-lg:px-2.5 max-lg:text-xs" href="/#contactFormSection">Contact Us</Link>
-          </div>
-
-        <button
-          onClick={() => setIsOpen(!isOpen)}
-          className="md:hidden text-white"
-        >
+          <Link className="text-xs font-medium" href="#HeroSection">
+            About Us
+          </Link>
+          <Link
+            className="h-full w-[115px] cursor-pointer text-nowrap rounded-[100px] bg-[#4380FF] px-5 py-2.5 text-sm font-medium max-lg:w-fit max-lg:px-2.5 max-lg:text-xs"
+            href="/#contactFormSection"
+          >
+            Contact Us
+          </Link>
+        </div>
+        <button onClick={() => setIsOpen(!isOpen)} className="md:hidden text-white">
           ☰
         </button>
       </div>

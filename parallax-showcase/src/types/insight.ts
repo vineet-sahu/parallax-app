@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
 import { Logo, Section } from "./Common";
 export interface InsightSection extends Section {
   __component: "story.sections-insight-section";
@@ -10,7 +8,7 @@ export interface InsightSection extends Section {
 }
 
 export interface InsightSectionFields {
-    sections: InsightSection[];
+  sections: InsightSection[];
 }
 
 export interface InsightItem {
