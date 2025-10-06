@@ -10,17 +10,26 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@eslint/eslintrc": "^3.3.1",
+    "@eslint/js": "^9.37.0",
+    "@next/eslint-plugin-next": "^15.5.4",
+    "@typescript-eslint/eslint-plugin": "^8.45.0",
+    "@typescript-eslint/parser": "^8.45.0",
+    "eslint": "^9.37.0",
+    "eslint-plugin-prettier": "^5.5.4",
+    "globals": "^16.4.0",
     "husky": "^8.0.0",
-    "lint-staged": "^16.2.3"
+    "lint-staged": "^16.2.3",
+    "prettier": "^3.6.2"
   },
   "lint-staged": {
-    "frontend/**/*.{js,jsx,ts,tsx}": [
+    "parallax-showcase/**/*.{js,jsx,ts,tsx}": [
       "npx eslint --fix",
       "npx prettier --write"
     ],
-    "backend/**/*.{js,ts}": [
+    "parallax-cms/**/*.{js,ts}": [
       "npx eslint --fix",
       "npx prettier --write"
     ]
-}
+  }
 }

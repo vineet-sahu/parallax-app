@@ -14,10 +14,6 @@ const Testimonial = () => {
     [data],
   );
 
-  if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>Error loading testimonialSection</div>;
-  if (!testimonialSection) return null;
-
   if (isLoading) {
     return (
       <div className="flex justify-center items-center py-10 animate-pulse text-gray-400">
