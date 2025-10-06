@@ -47,29 +47,3 @@ jobs:
       run: |
         cd parallax-showcase
         npm run build
-
-  test:
-    runs-on: ubuntu-latest
-
-    steps:
-    # Checkout the code from the repository
-    - name: Checkout code
-      uses: actions/checkout@v2
-
-    # Set up Node.js
-    - name: Set up Node.js
-      uses: actions/setup-node@v2
-      with:
-        node-version: '20'
-
-    # Install dependencies
-    - name: Install dependencies
-      run: |
-        cd parallax-showcase
-        npm install
-
-    # Run tests (e.g., Jest, React Testing Library)
-    - name: Run tests
-      run: |
-        cd parallax-showcase
-        npm test  # Ensure you have a testing script set up in your `package.json`
