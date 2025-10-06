@@ -1,10 +1,13 @@
 import type { NextConfig } from "next";
+const domains = process.env.NEXT_PUBLIC_STRAPI_MEDIA_DOMAIN
+  ? process.env.NEXT_PUBLIC_STRAPI_MEDIA_DOMAIN.split(",")
+  : [];
 
 const nextConfig: NextConfig = {
   /* config options here */
 
   images: {
-    domains: ["localhost"],
+    domains: domains,
     qualities: [25, 50, 70, 75, 85, 90, 100],
   },
   async headers() {
