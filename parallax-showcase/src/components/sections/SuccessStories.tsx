@@ -4,7 +4,6 @@ import { Media } from "@/utils";
 import Image from "next/image";
 import { memo, useMemo } from "react";
 
-
 const SuccessStories = () => {
   const {
     successStory: { isLoading, error, data },

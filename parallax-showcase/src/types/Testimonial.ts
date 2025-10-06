@@ -1,5 +1,3 @@
-
-
 import { Logo, Section } from "./Common";
 
 export interface Testimonial {
