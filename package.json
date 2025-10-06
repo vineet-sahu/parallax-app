@@ -1,0 +1,26 @@
+{
+  "name": "parallax-app",
+  "version": "1.0.0",
+  "description": "https://www.figma.com/community/file/1452652705649272836",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepare": "husky install"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "husky": "^8.0.0",
+    "lint-staged": "^16.2.3"
+  },
+  "lint-staged": {
+    "frontend/**/*.{js,jsx,ts,tsx}": [
+      "npx eslint --fix",
+      "npx prettier --write"
+    ],
+    "backend/**/*.{js,ts}": [
+      "npx eslint --fix",
+      "npx prettier --write"
+    ]
+}
+}

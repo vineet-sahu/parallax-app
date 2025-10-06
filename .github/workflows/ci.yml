@@ -1,0 +1,75 @@
+name: CI with Linting and Formatting
+
+# Trigger this workflow on push or pull request to the `main` branch
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  lint_and_format:
+    runs-on: ubuntu-latest
+
+    steps:
+    # Checkout the code from the repository
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    # Set up Node.js
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '20'  # You can adjust the Node.js version to your needs
+
+    # Install dependencies
+    - name: Install dependencies
+      run: |
+        cd parallax-showcase
+        npm install
+
+    # Run ESLint to check code quality
+    - name: Run ESLint
+      run: |
+        cd parallax-showcase
+        npm run lint  # Ensure you've set up ESLint in your project
+
+    # Run Prettier to check formatting
+    - name: Run Prettier
+      run: |
+        cd parallax-showcase
+        npm run prettier:check  # Ensure you've set up Prettier in your project
+
+    # Build the Next.js app
+    - name: Build Next.js app
+      run: |
+        cd parallax-showcase
+        npm run build
+
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    # Checkout the code from the repository
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    # Set up Node.js
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '20'
+
+    # Install dependencies
+    - name: Install dependencies
+      run: |
+        cd parallax-showcase
+        npm install
+
+    # Run tests (e.g., Jest, React Testing Library)
+    - name: Run tests
+      run: |
+        cd parallax-showcase
+        npm test  # Ensure you have a testing script set up in your `package.json`

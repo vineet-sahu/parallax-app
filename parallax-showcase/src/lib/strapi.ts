@@ -38,7 +38,7 @@ async function strapiFetch<T>(endpoint: string): Promise<T | null> {
 const populateQuery = (populate: string): string => `/api/homepage?populate${populate}`;
 
 export const fetchNavbar = (): Promise<NavbarResponse | null> =>
-  strapiFetch<NavbarResponse>(`/api/navbar?populate=*`);
+  strapiFetch<NavbarResponse>("/api/navbar?populate=*");
 
 export const fetchHome = (): Promise<unknown> =>
   strapiFetch<unknown>(`${populateQuery("[sections][populate]=*")}`);
@@ -55,9 +55,9 @@ export const fetchServices = (): Promise<ServicesResponse | null> =>
 
 export const fetchContactForm = (): Promise<ContactFormResponse | null> => {
   return strapiFetch<ContactFormResponse>(
-    `${populateQuery("[sections][on][contact-form.sections-contact-form][populate]=*")}`
+    `${populateQuery("[sections][on][contact-form.sections-contact-form][populate]=*")}`,
   );
-}
+};
 
 export const fetchInsights = (): Promise<InsightSectionResponse | null> =>
   strapiFetch<InsightSectionResponse>(
@@ -73,7 +73,6 @@ export const fetchSuccessStories = (): Promise<SuccessStoriesResponse | null> =>
   strapiFetch<SuccessStoriesResponse>(
     `${populateQuery("[sections][on][story.sections-success-stories][populate][stories][populate]=*")}`,
     // `${populateQuery("=*")}`,
-
   );
 export const fetchTestimonial = (): Promise<TestimonialResponse | null> =>
   strapiFetch<TestimonialResponse>(

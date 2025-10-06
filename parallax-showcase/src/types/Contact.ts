@@ -24,6 +24,6 @@ export interface ContactFormField {
   id: number;
   label: string;
   placeholder?: string | null;
-  type: "text" | "email" | "number" | "textarea" | "date" |string;
+  type: "text" | "email" | "number" | "textarea" | "date" | string;
   required?: boolean | null;
 }
