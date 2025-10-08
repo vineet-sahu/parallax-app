@@ -37,10 +37,10 @@ const TechnologyStack = () => {
 
   return (
     <div
-      className="section w-full text-white md:py-16 md:px-6"
+      className="section w-full text-white md:py-16"
       id={(data?.data?.sections || [])[0]?.sectionId}
     >
-      <div className="mr-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+      <div className="grid grid-cols-[1fr_1.5fr] gap-6 items-stretch h-full gap-20">
         <div className="bg-gray-800 rounded-3xl p-10 relative overflow-hidden">
           <h2 className="text-4xl font-bold leading-snug">{technologyStackData.heading}</h2>
           <p className="mt-4 text-gray-400">{technologyStackData.description}</p>
@@ -48,7 +48,7 @@ const TechnologyStack = () => {
             <Image
               src={img12.src as string}
               alt={"3D Shape"}
-              className="rounded-lg"
+              className="rounded-lg w-full mix-blend-plus-lighter"
               width={100}
               height={100}
               quality={90}
@@ -56,7 +56,7 @@ const TechnologyStack = () => {
           </div>
         </div>
 
-        <div className="space-y-10">
+        <div className="space-y-10 py-30">
           {technologyStackData.technology_stacks?.map((stack, index) => (
             <div key={stack.id}>
               <div className="flex items-center gap-3">

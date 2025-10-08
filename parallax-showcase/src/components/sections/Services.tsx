@@ -5,11 +5,25 @@ import { useAppContext } from "@/context/ParallaxContext";
 import { getStrapiMediaUrl } from "@/lib/strapi";
 import { Media } from "@/utils";
 import Image from "next/image";
+import { motion, useTransform, useScroll } from "framer-motion";
+import MainBall from "@/assets/MainBall.png";
 
 const Services = () => {
   const {
     services: { isLoading, error, data },
   } = useAppContext();
+
+  const { scrollYProgress } = useScroll();
+
+  const ballScale = useTransform(
+    scrollYProgress,
+    [0, 0.1, 0.2, 0.3, 0.5, 0.8, 1],
+    [1.8, 1.6, 1.2, 0.5, 0.5, 0.4, 0.4],
+  );
+
+  const ballTopPosition = useTransform(scrollYProgress, [0, 0.3], [400, -200]);
+
+  const ballRightPosition = useTransform(scrollYProgress, [0, 0.3, 0.5, 0.8], [100, 100, 140, 120]);
 
   const servicesData = useMemo(() => data?.data?.sections?.[0], [data]);
   const sectionId = servicesData?.sectionId;
@@ -39,15 +53,31 @@ const Services = () => {
   }
 
   return (
-    <section id={sectionId} className="section">
-      <div className="max-w-3xl mb-12">
+    <section id={sectionId} className="section relative">
+      <motion.div
+        className="absolute select-none pointer-events-none pointer-events-none top-0 blur-[6px]"
+        style={{
+          top: ballTopPosition,
+          right: ballRightPosition,
+          scale: ballScale,
+        }}
+      >
+        <Image
+          alt="Main Ball"
+          src={MainBall.src}
+          width={MainBall.width}
+          height={MainBall.height}
+          priority
+        />
+      </motion.div>
+      <div className="max-w-3xl mb-12 mt-30">
         <h2 className="text-3xl md:text-4xl font-bold">{servicesData.title}</h2>
         {servicesData.description && (
           <p className="mt-4 text-gray-300">{servicesData.description}</p>
         )}
       </div>
 
-      <div className="grid grid-cols-[repeat(auto-fill,_minmax(308px,1fr))] gap-6">
+      <div className="grid grid-cols-[repeat(auto-fill,_minmax(308px,1fr))] gap-4 max-md:gap-6">
         {servicesData.service_details.map((card) => {
           const imageUrl = getStrapiMediaUrl(card.icon as Media);
 

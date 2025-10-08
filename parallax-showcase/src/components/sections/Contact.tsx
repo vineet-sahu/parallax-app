@@ -29,8 +29,8 @@ const Contact = () => {
   return (
     <section
       id={contactFormData.sectionId ?? "contact"}
-      className="mr-auto bg-white/10 rounded-3xl overflow-hidden flex flex-col md:flex-row w-full justify-between"
-      style={{ scrollMarginTop: "72px" }}
+      className="mr-auto bg-white/10 my-20 rounded-3xl overflow-hidden flex flex-col md:flex-row w-full justify-between"
+      style={{ scrollMarginTop: "72px", padding: 0, marginTop: "72px" }}
     >
       <aside
         className="flex-2 relative flex flex-col items-center justify-center p-6 md:p-10 text-white bg-gradient-to-b from-blue-400 to-blue-600"
