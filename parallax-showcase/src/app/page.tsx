@@ -11,12 +11,103 @@ import Insights from "@/components/sections/Insights";
 import Contact from "@/components/sections/Contact";
 import LazyLoaderWithScroll from "@/components/common/LazyLoaderWithScroll";
 import ClientRootWrapper from "@/components/ClientRootWrapper";
+import { motion, useTransform, useScroll, useMotionTemplate } from "framer-motion";
+import MainBall from "@/assets/MainBall.png";
+import Image from "next/image";
+import Triangle from "@/assets/Triangle.png";
 
 export default function Home() {
+  const { scrollYProgress } = useScroll();
+  const ballTopPosition = useTransform(scrollYProgress, [0, 0.3], [120, 400]);
+
+  const ballRightPosition = useTransform(
+    scrollYProgress,
+    [0, 0.3, 0.5, 0.6, 1],
+    [0, 260, 260, 260, 600],
+  );
+
+  const ballScale = useTransform(
+    scrollYProgress,
+    [0, 0.2, 0.3, 0.45, 0.6, 0.8, 0.9, 1],
+    [1, 1, 1.5, 1.3, 1, 1, 1, 1],
+  );
+
+  const ballBlur = useTransform(scrollYProgress, [0, 0.2, 0.3, 0.5], [0, 0, 10, 20]);
+
+  const ballOpacity = useTransform(
+    scrollYProgress,
+    [0, 0.1, 0.2, 0.3, 0.4, 0.6, 0.8, 1],
+    [1, 1, 1, 1, 1, 0.5, 0, 0],
+  );
+
+  const ballFilter = useMotionTemplate`blur(${ballBlur}px)`;
+
+  const triangleTopPosition = useTransform(scrollYProgress, [0, 0.3], [120, 400]);
+
+  const triangleScale = useTransform(scrollYProgress, [0, 0.2, 0.3, 0.5], [1, 0.2, 0.5, 1]);
+
+  const triangleLeftPosition = useTransform(
+    scrollYProgress,
+    [0, 0.1, 0.2, 0.3, 0.5],
+    [-200, -100, -190, -200, -200],
+  );
+
+  const triangleOpacity = useTransform(
+    scrollYProgress,
+    [0, 0.1, 0.2, 0.3, 0.4, 0.6],
+    [1, 1, 1, 1, 1, 0],
+  );
+
+  const triangleBlur = useTransform(scrollYProgress, [0, 0.2, 0.3, 0.4, 0.6], [0, 20, 30, 5, 2]);
+
+  const tringleFilter = useMotionTemplate`blur(${triangleBlur}px)`;
+
   return (
     <ClientRootWrapper>
       <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
+        <div className="wrapper h-full absolute left-0 top-[-72px] right-0 z-[-1]"></div>
         <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
+          <motion.div
+            className="fixed select-none pointer-events-none pointer-events-none"
+            style={{
+              top: ballTopPosition,
+              right: ballRightPosition,
+              scale: ballScale,
+              filter: ballFilter,
+              opacity: ballOpacity,
+            }}
+          >
+            <Image
+              alt="Main Ball"
+              src={MainBall.src}
+              width={MainBall.width}
+              height={MainBall.height}
+              priority
+            />
+          </motion.div>
+
+          <motion.div
+            className="fixed select-none pointer-events-none pointer-events-none z-[-1] mix-blend-plus-lighter max-lg:hidden"
+            style={{
+              top: triangleTopPosition,
+              scale: triangleScale,
+              left: triangleLeftPosition,
+              opacity: triangleOpacity,
+              filter: tringleFilter,
+            }}
+          >
+            <motion.div style={{ filter: tringleFilter }}>
+              <Image
+                alt="Triangle"
+                src={Triangle.src}
+                width={Triangle.width}
+                height={Triangle.height}
+                quality={90}
+                priority
+              />
+            </motion.div>
+          </motion.div>
+
           <Hero />
           <hr className="my-8 border-t-1 border-dashed border-gray-400 w-full opacity-40" />
           <Client />
@@ -27,31 +118,25 @@ export default function Home() {
             <Services />
           </LazyLoaderWithScroll>
 
-          <hr className="my-8 border-t-1 border-dashed border-gray-400 w-full opacity-40" />
           <LazyLoaderWithScroll>
             <Testimonial />
           </LazyLoaderWithScroll>
 
-          <hr className="my-8 border-t-1 border-dashed border-gray-400 w-full opacity-40" />
           <LazyLoaderWithScroll>
             <SuccessStories />
           </LazyLoaderWithScroll>
 
-          <hr className="my-8 border-t-1 border-dashed border-gray-400 w-full opacity-40" />
           <LazyLoaderWithScroll>
             <TechnologyStack />
           </LazyLoaderWithScroll>
-          <hr className="my-8 border-t-1 border-dashed border-gray-400 w-full opacity-40" />
           <LazyLoaderWithScroll>
             <Insights />
           </LazyLoaderWithScroll>
 
-          <hr className="my-8 border-t-1 border-dashed border-gray-400 w-full opacity-40" />
           <LazyLoaderWithScroll>
             <Contact />
           </LazyLoaderWithScroll>
         </main>
-        <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center"></footer>
       </div>
     </ClientRootWrapper>
   );

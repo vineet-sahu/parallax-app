@@ -1,23 +1,46 @@
 "use client";
 
 import { useAppContext } from "@/context/ParallaxContext";
+import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { memo, useEffect, useMemo, useState } from "react";
+import Logo from "@/assets/logo.png";
 
-export default function Navbar() {
+const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { navbar } = useAppContext();
 
-  if (navbar.isLoading) return <div>Loading...</div>;
-  if (navbar.error) return <div>Error loading navbar</div>;
+  const [active, setActive] = useState<number>(0);
+  const navItems = useMemo(() => navbar.data?.data?.menuItems || [], [navbar]);
 
-  const navItems = navbar.data?.data?.menuItems || [];
+  useEffect(() => {
+    const navItems = navbar.data?.data?.menuItems || [];
+    const handleHashChange = () => {};
+    if (navItems.length !== 0) {
+      const handleHashChange = () => {
+        if (typeof window !== "undefined") {
+          const navItemIndex = navItems.findIndex((item) => {
+            const href = item.url.startsWith("/") ? `#${item.url.replace("/", "")}` : item.url;
+            return href === window.location.hash;
+          });
+          setActive(navItemIndex);
+        }
+      };
+      window.addEventListener("hashchange", handleHashChange);
+    }
+
+    return () => window.removeEventListener("hashchange", handleHashChange);
+  }, [navbar]);
+
+  if (navbar.isLoading) return <div></div>;
+  if (navbar.error) return <div>Error loading navbar</div>;
 
   return (
     <header className="fixed top-0 left-0 w-full bg-[#010201] backdrop-blur-md z-50">
-      <div className="max-w-7xl mx-auto flex items-center justify-between px-6 py-4">
-        <Link href="/" className="text-white font-bold text-xl">
-          ParallaxShowcase
+      <div className="mx-auto flex items-center justify-between px-20 py-4 gap-4">
+        <Link href="/" className="text-white font-bold text-xl flex items-center gap-2">
+          <Image alt="logo" src={Logo.src} width={Logo.width} height={Logo.height} quality={100} />
+          <span>ParallaxShowcase</span>
         </Link>
 
         <div className="flex h-full items-center gap-2 max-sm:hidden">
@@ -44,17 +67,25 @@ export default function Navbar() {
           />
         </div>
 
-        <nav className="hidden md:flex gap-8">
-          {navItems.map((item) => {
+        <nav className="hidden md:flex gap-8 relative h-10 text-[13px] items-center px-5">
+          <div className="w-full absolute h-0 border-1 border-t-0 border-gray-700 bottom-0 z-0 left-0"></div>
+          {navItems.map((item, index) => {
             const href = item.url.startsWith("/") ? `#${item.url.replace("/", "")}` : item.url;
+            const isActive = active === index;
+
             return (
-              <Link
+              <div
                 key={item.label}
-                href={href}
-                className="text-white hover:text-purple-400 transition"
+                className={`transition z-1 flex h-full items-center ${
+                  isActive
+                    ? "font-semibold relative after:absolute after:bottom-0 after:left-0 after:h-[3px] after:w-full after:rounded after:bg-gradient-to-r after:from-[#11deff] after:to-[#4380ff]"
+                    : "text-white"
+                }`}
               >
-                {item.label}
-              </Link>
+                <Link key={item.label} href={href} className="" onClick={() => setActive(index)}>
+                  {item.label}
+                </Link>
+              </div>
             );
           })}
         </nav>
@@ -91,4 +122,6 @@ export default function Navbar() {
       )}
     </header>
   );
-}
+};
+
+export default memo(Navbar);

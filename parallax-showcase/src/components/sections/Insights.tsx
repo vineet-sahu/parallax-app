@@ -39,7 +39,7 @@ const Insights = () => {
   }
 
   return (
-    <section id={sectionId} className="section w-full text-white md:py-16 md:px-6">
+    <section id={sectionId} className="section w-full text-white md:py-16">
       <div className="mr-auto">
         <div className="mb-12 text-center lg:text-left">
           <h2 className="text-4xl font-bold">{insightsData.title}</h2>
@@ -65,7 +65,7 @@ const Insights = () => {
                       src={imageUrl}
                       alt={item.title || "Insight image"}
                       fill
-                      className="object-cover p-4 rounded-t-2xl"
+                      className="object-cover p-4 rounded-[25px] border"
                       quality={85}
                       sizes="(max-width: 768px) 100vw, 33vw"
                       loading="lazy"

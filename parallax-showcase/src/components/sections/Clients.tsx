@@ -39,35 +39,26 @@ const Client = () => {
   return (
     <section
       id={data?.data?.sections?.[0]?.sectionId ?? "clients"}
-      className={`mx-auto grid gap-4 section grid-cols-${clients.length} sm:grid-cols-${Math.min(
-        clients.length,
-        3,
-      )} md:grid-cols-${Math.min(clients.length, 7)} lg:grid-cols-${Math.min(
-        clients.length,
-        7,
-      )} xl:grid-cols-${Math.min(clients.length, 8)} 2xl:grid-cols-${Math.min(
-        clients.length,
-        10,
-      )} items-center justify-items-center w-full px-4 py-8`}
-      style={{
-        gridTemplateColumns: "repeat(auto-fit, minmax(100px, 1fr))",
-      }}
+      className="flex min-h-[72px] w-full flex-wrap items-center justify-center gap-[13px]"
     >
       {clients.map((client) => {
         const imageUrl = client.logo ? getStrapiMediaUrl(client.logo) : null;
         return (
-          <figure key={client.id} className="flex items-center justify-center h-24 rounded">
+          <figure
+            key={client.id}
+            className="flex items-center justify-center h-24 rounded w-[149px]"
+          >
             {imageUrl ? (
               <Image
                 src={imageUrl}
                 alt={client.logo?.alternativeText || client.name}
                 title={client.name}
-                width={client.logo?.width || 100}
-                height={client.logo?.height || 100}
+                width={100}
+                height={72}
                 loading="lazy"
                 placeholder="empty"
-                className="object-contain max-h-20 w-auto"
-                quality={70}
+                className="object-scale-down max-h-20 max-w-full w-full h-full"
+                quality={75}
               />
             ) : (
               <div className="flex items-center justify-center h-16 px-4 bg-gray-100 rounded">

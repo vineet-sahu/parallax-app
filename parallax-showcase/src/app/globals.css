@@ -47,3 +47,35 @@ h1.main-title {
   line-height: 96px;
   font-weight: bold;
 }
+
+body {
+  background-color: #151a2c;
+  background-image: url("/Texture.png");
+}
+
+.wrapper {
+  /* background-image: url('/Texture.png'); */
+  background-image: url("/SectionHero.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+nav,
+header {
+  a {
+    white-space: nowrap;
+  }
+}
+
+/* Hide scrollbar but allow scrolling */
+html,
+body {
+  overflow-y: scroll; /* ensures layout consistency */
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Edge */
+}
