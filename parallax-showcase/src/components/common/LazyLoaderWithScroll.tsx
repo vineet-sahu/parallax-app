@@ -1,5 +1,4 @@
-import { useEffect, useRef, useState } from "react";
-
+import React, { useEffect, useRef, useState } from "react";
 export default function LazyLoaderWithScroll({ children }: { children: React.ReactNode }) {
   const ref = useRef<HTMLDivElement>(null);
   const [isVisible, setVisible] = useState(false);
@@ -14,7 +13,7 @@ export default function LazyLoaderWithScroll({ children }: { children: React.Rea
 
   return (
     <div className="w-full" ref={ref}>
-      {isVisible ? children : <p>Loading...</p>}
+      {isVisible ? children : <p></p>}
     </div>
   );
 }

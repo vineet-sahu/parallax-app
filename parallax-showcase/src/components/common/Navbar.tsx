@@ -31,7 +31,7 @@ export default function Navbar() {
     return () => window.removeEventListener("hashchange", handleHashChange);
   }, [navbar]);
 
-  if (navbar.isLoading) return <div>Loading...</div>;
+  if (navbar.isLoading) return <div></div>;
   if (navbar.error) return <div>Error loading navbar</div>;
 
   const navItems = navbar.data?.data?.menuItems || [];
