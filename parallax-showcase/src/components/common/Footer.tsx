@@ -1,10 +1,10 @@
 import Link from "next/link";
-import React from "react";
+import React, { memo } from "react";
 import { Mail, Phone, Facebook, Instagram, Linkedin } from "lucide-react";
 import Image from "next/image";
 import Logo from "@/assets/logo.png";
 
-export default function Footer() {
+const Footer = () => {
   return (
     <footer className="bg-[#0B0D13] text-white pt-12 border-t border-gray-800 px-20 pb-8">
       <div className="mx-auto">
@@ -108,7 +108,9 @@ export default function Footer() {
       </div>
     </footer>
   );
-}
+};
+
+export default memo(Footer);
 
 function FooterLink({ href, children }: { href: string; children: React.ReactNode }) {
   return (

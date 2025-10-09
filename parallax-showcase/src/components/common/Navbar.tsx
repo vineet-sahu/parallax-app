@@ -3,14 +3,15 @@
 import { useAppContext } from "@/context/ParallaxContext";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { memo, useEffect, useMemo, useState } from "react";
 import Logo from "@/assets/logo.png";
 
-export default function Navbar() {
+const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { navbar } = useAppContext();
 
   const [active, setActive] = useState<number>(0);
+  const navItems = useMemo(() => navbar.data?.data?.menuItems || [], [navbar]);
 
   useEffect(() => {
     const navItems = navbar.data?.data?.menuItems || [];
@@ -33,8 +34,6 @@ export default function Navbar() {
 
   if (navbar.isLoading) return <div></div>;
   if (navbar.error) return <div>Error loading navbar</div>;
-
-  const navItems = navbar.data?.data?.menuItems || [];
 
   return (
     <header className="fixed top-0 left-0 w-full bg-[#010201] backdrop-blur-md z-50">
@@ -123,4 +122,6 @@ export default function Navbar() {
       )}
     </header>
   );
-}
+};
+
+export default memo(Navbar);
