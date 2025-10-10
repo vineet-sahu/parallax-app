@@ -2,26 +2,28 @@ import img12 from "@/assets/image12.png";
 import { useAppContext } from "@/context/ParallaxContext";
 import { getStrapiMediaUrl } from "@/lib/strapi";
 import Image from "next/image";
-import { memo, useEffect, useMemo, useRef, useState } from "react";
+import { memo, useEffect, useMemo, useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import GlobImage from "@/assets/Glob.png";
 
 const TechnologyStack = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
-  const [isMounted, setIsMounted] = useState(false);
 
   const {
     technologyStack: { isLoading, error, data },
   } = useAppContext();
 
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
-
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ["start end", "end start"],
   });
+
+  useEffect(() => {
+    const unsubscribe = scrollYProgress.on("change", (latest) => {
+      console.log("TechStack Scroll Progress:", latest);
+    });
+    return () => unsubscribe();
+  }, [scrollYProgress]);
 
   const spacing = useTransform(
     scrollYProgress,
@@ -34,15 +36,17 @@ const TechnologyStack = () => {
     [0, 0.3, 0.8, 1],
     [-200, -150, -100, -150],
   );
+
   const globeScale = useTransform(
     scrollYProgress,
-    [0, 0.3, 0.5, 0.8, 1],
-    [0.5, 1.2, 1.4, 1.1, 0.8],
+    [0, 0.3, 0.5, 0.8, 0.9, 0.95, 0.99, 1],
+    [0.5, 1.2, 1.4, 1.6, 1.4, 1.2, 1, 0.6],
   );
+
   const globeRotate = useTransform(
     scrollYProgress,
     [0, 0.4, 0.6, 0.8, 0.9, 1],
-    [-60, 15, 0, 10, -20, 10],
+    [-60, 15, 0, 5, -5, 5],
   );
 
   const globeTopPosition = useTransform(
@@ -52,17 +56,6 @@ const TechnologyStack = () => {
   );
 
   const technologyStackData = useMemo(() => data?.data?.sections?.[0], [data]);
-
-  if (!isMounted) {
-    return (
-      <div
-        ref={sectionRef}
-        className="flex justify-center items-center py-10 animate-pulse text-gray-400"
-      >
-        Loading technology stack...
-      </div>
-    );
-  }
 
   if (isLoading) {
     return (
@@ -90,12 +83,13 @@ const TechnologyStack = () => {
 
   return (
     <motion.div
-      className="section w-full text-white md:py-16 relative"
-      id={(data?.data?.sections || [])[0]?.sectionId}
+      className="section w-full text-white md:py-16 relative min-h-screen"
+      id={technologyStackData?.sectionId || "technology-stack"}
       ref={sectionRef}
+      style={{ scrollMarginTop: "72px" }}
     >
       <motion.div
-        className="absolute z-[-1]"
+        className="absolute z-[-1] pointer-events-none"
         style={{
           left: globeLeftPostion,
           scale: globeScale,
@@ -109,9 +103,11 @@ const TechnologyStack = () => {
           width={300}
           height={GlobImage.height}
           quality={90}
-        ></Image>
+          priority
+        />
       </motion.div>
-      <div className="grid grid-cols-[1fr_1.5fr] gap-6 items-stretch h-full gap-20">
+
+      <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.5fr] gap-6 lg:gap-20 items-stretch h-full">
         <div className="bg-gray-800 rounded-[100px] p-10 relative overflow-hidden">
           <h2 className="text-4xl font-bold uppercase [word-spacing:100vw] leading-normal">
             {technologyStackData.heading}
@@ -129,9 +125,9 @@ const TechnologyStack = () => {
           </div>
         </div>
 
-        <motion.div className="py-30 flex flex-col">
+        <div className="py-10 lg:py-30 flex flex-col">
           {technologyStackData.technology_stacks?.map((stack, index) => (
-            <motion.div key={stack.id} style={{ marginTop: spacing }}>
+            <motion.div key={stack.id} style={{ marginTop: index === 0 ? 0 : spacing }}>
               <div className="flex items-center gap-3">
                 <span className="text-gray-600 text-2xl font-bold">
                   {String(index + 1).padStart(2, "0")}
@@ -161,7 +157,7 @@ const TechnologyStack = () => {
               </div>
             </motion.div>
           ))}
-        </motion.div>
+        </div>
       </div>
     </motion.div>
   );

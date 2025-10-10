@@ -131,10 +131,7 @@ export default function Home() {
           <LazyLoaderWithScroll>
             <SuccessStories />
           </LazyLoaderWithScroll>
-
-          <LazyLoaderWithScroll>
-            <TechnologyStack />
-          </LazyLoaderWithScroll>
+          <TechnologyStack />
           <LazyLoaderWithScroll>
             <Insights />
           </LazyLoaderWithScroll>

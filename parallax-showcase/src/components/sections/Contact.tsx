@@ -32,11 +32,17 @@ const Contact = () => {
 
   const lineMdEmailRightPosition = useTransform(scrollYProgress, [0, 0.4], [-50, -100]);
   const lineMdEmailTopPosition = useTransform(scrollYProgress, [0, 0.2, 0.4], [-120, -50, -75]);
+  const bottomPosition = useTransform(
+    scrollYProgress,
+    [0, 0.2, 0.3, 0.35, 0.4],
+    [0, -10, -20, -50, -150],
+  );
   const overflowHidden = useTransform(scrollYProgress, [0, 0.3], ["visible", "hidden"]);
   const paddingY = useTransform(scrollYProgress, [0, 0.2], [0, 40]);
   const lineMdEmailRightScale = useTransform(scrollYProgress, [0, 0.2, 0.4], [0.8, 0.8, 0.5]);
-  const iconScale = useTransform(scrollYProgress, [0, 0.2, 0.3, 0.4], [0.01, 0.1, 0.3, 1]);
+  const iconScale = useTransform(scrollYProgress, [0, 0.2, 0.3, 0.4], [0.01, 0.1, 0.3, 2.2]);
   const iconOpacity = useTransform(scrollYProgress, [0, 0.2, 0.3, 0.4], [0, 0.1, 0.5, 1]);
+  const iconTopPosition = useTransform(scrollYProgress, [0, 0.2, 0.3, 0.4], [0, 10, 20, 40]);
 
   const contactFormData: ContactFormSection | undefined = useMemo(
     () => data?.data?.sections?.[0],
@@ -69,10 +75,11 @@ const Contact = () => {
         <div className="relative z-10 flex flex-col items-center text-center">
           {iconUrl && (
             <motion.div
-              className="w-28 h-28 md:w-40 md:h-40 rounded-full bg-blue-200 flex items-center justify-center mb-6 overflow-hidden"
+              className="relative w-28 h-28 md:w-40 md:h-40 rounded-full flex items-center justify-center mb-6 overflow-hidden"
               style={{
                 scale: iconScale,
                 opacity: iconOpacity,
+                top: iconTopPosition,
               }}
             >
               <Image
@@ -86,7 +93,12 @@ const Contact = () => {
               />
             </motion.div>
           )}
-          <div className="flex flex-col items-center">
+          <motion.div
+            className="flex flex-col items-center relative"
+            style={{
+              bottom: bottomPosition,
+            }}
+          >
             <h2 className="text-2xl md:text-3xl font-bold">{contactFormData.heading}</h2>
             {contactFormData.subheading && (
               <p className="mt-3 text-white/90 text-sm md:text-base">
@@ -94,35 +106,43 @@ const Contact = () => {
               </p>
             )}
 
-            <div className="mt-6 md:mt-8 space-y-4 w-full max-w-sm">
+            <div className="mt-6 md:mt-8 w-full max-w-sm rounded-xl bg-[#62b190]">
               {contactFormData.phone && (
-                <div className="flex items-center gap-3 bg-green-600 px-4 py-3 rounded-xl justify-center text-sm md:text-base">
-                  <Image
-                    src={phone.src}
-                    alt="phone"
-                    width={20}
-                    height={20}
-                    loading="lazy"
-                    className="h-5 w-5 object-contain"
-                  />
+                <div className="flex items-center gap-3 px-4 py-3 justify-between text-sm md:text-base rounded-tl-xl rounded-tr-xl relative">
+                  <div className="flex items-center gap-2">
+                    <Image
+                      src={phone.src}
+                      alt="phone"
+                      width={20}
+                      height={20}
+                      loading="lazy"
+                      className="h-5 w-5 object-contain"
+                    />{" "}
+                    Phone
+                  </div>
                   <span className="font-semibold tracking-wide">{contactFormData.phone}</span>
+                  <div className="absolute bottom-0 left-1/2 w-[80%] -translate-x-1/2 border-b-2 border-[#000]/10"></div>
                 </div>
               )}
               {contactFormData.email && (
-                <div className="flex items-center gap-3 bg-green-500 px-4 py-3 rounded-xl justify-center text-sm md:text-base">
-                  <Image
-                    src={mail.src}
-                    alt="mail"
-                    width={20}
-                    height={20}
-                    loading="lazy"
-                    className="h-5 w-5 object-contain"
-                  />
+                <div className="flex items-center gap-3 px-4 py-3 justify-between text-sm md:text-base rounded-bl-xl rounded-br-xl">
+                  <div className="flex items-center gap-2">
+                    <Image
+                      src={mail.src}
+                      alt="mail"
+                      width={20}
+                      height={20}
+                      loading="lazy"
+                      className="h-5 w-5 object-contain"
+                    />{" "}
+                    Email
+                  </div>
+
                   <span className="font-semibold tracking-wide">{contactFormData.email}</span>
                 </div>
               )}
             </div>
-          </div>
+          </motion.div>
         </div>
       </aside>
 
