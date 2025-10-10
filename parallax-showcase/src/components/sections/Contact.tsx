@@ -1,6 +1,6 @@
 "use client";
 
-import { memo, useEffect, useMemo, useRef, useState } from "react";
+import { memo, useEffect, useMemo, useRef } from "react";
 import Image from "next/image";
 import mail from "@/assets/mail.png";
 import phone from "@/assets/phone.png";
@@ -12,57 +12,44 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import lineMdEmail from "@/assets/lineMdEmail.png";
 
 const Contact = () => {
-  const [isMounted, setIsMounted] = useState(false);
   const sectionRef = useRef<HTMLDivElement>(null);
 
   const {
     contactForm: { isLoading, error, data },
   } = useAppContext();
 
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
-
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ["start end", "end start"],
   });
 
+  useEffect(() => {
+    const unsubscribe = scrollYProgress.on("change", (latest) => {
+      console.log("Scroll Progress:", latest);
+    });
+    return () => unsubscribe();
+  }, [scrollYProgress]);
+
   const lineMdEmailRightPosition = useTransform(scrollYProgress, [0, 0.4], [-50, -100]);
-
   const lineMdEmailTopPosition = useTransform(scrollYProgress, [0, 0.2, 0.4], [-120, -50, -75]);
-
+  const bottomPosition = useTransform(
+    scrollYProgress,
+    [0, 0.2, 0.3, 0.35, 0.4],
+    [0, -10, -20, -50, -150],
+  );
   const overflowHidden = useTransform(scrollYProgress, [0, 0.3], ["visible", "hidden"]);
-
   const paddingY = useTransform(scrollYProgress, [0, 0.2], [0, 40]);
-
   const lineMdEmailRightScale = useTransform(scrollYProgress, [0, 0.2, 0.4], [0.8, 0.8, 0.5]);
+  const iconScale = useTransform(scrollYProgress, [0, 0.2, 0.3, 0.4], [0.01, 0.1, 0.3, 2.2]);
+  const iconOpacity = useTransform(scrollYProgress, [0, 0.2, 0.3, 0.4], [0, 0.1, 0.5, 1]);
+  const iconTopPosition = useTransform(scrollYProgress, [0, 0.2, 0.3, 0.4], [0, 10, 20, 40]);
 
   const contactFormData: ContactFormSection | undefined = useMemo(
     () => data?.data?.sections?.[0],
     [data],
   );
 
-  const iconScale = useTransform(
-    scrollYProgress,
-    [0, 0.2, 0.3, 0.4, 0.5],
-    [0.01, 0.1, 0.2, 0.6, 1],
-  );
-
-  const iconOpacity = useTransform(scrollYProgress, [0, 0.2, 0.3, 0.4, 0.5], [0, 0.1, 0.5, 0.7, 1]);
-
-  if (!isMounted) {
-    return (
-      <div
-        ref={sectionRef}
-        className="flex justify-center items-center py-10 animate-pulse text-gray-400"
-      >
-        Loading Contact...
-      </div>
-    );
-  }
-
-  if (isLoading) return <div className="text-gray-500"></div>;
+  if (isLoading) return <div className="text-gray-500">Loading...</div>;
   if (error) return <div className="text-red-500">Error loading contact info</div>;
   if (!contactFormData) return null;
 
@@ -73,11 +60,11 @@ const Contact = () => {
     <section
       ref={sectionRef}
       id={contactFormData.sectionId ?? "contact"}
-      className="relative h-full bg-white/10  my-20 max-md:rounded-[100px] rounded-[80px] flex max-md:flex-col w-full"
-      style={{ scrollMarginTop: "72px", padding: 0, marginTop: "72px" }}
+      className="relative h-full bg-white/10 my-20 max-md:rounded-[100px] rounded-[80px] flex max-md:flex-col w-full !p-0"
+      style={{ scrollMarginTop: "72px", marginTop: "72px" }}
     >
       <aside
-        className="flex-2 relative flex flex-col items-center justify-center p-6 md:p-10 text-white bg-gradient-to-b from-blue-400 to-blue-600"
+        className="flex-2 relative flex flex-col items-center justify-center p-6 md:p-10 text-white bg-gradient-to-b from-blue-400 to-blue-600 rounded-tl-[50px] rounded-bl-[50px]"
         style={{
           backgroundImage: bgUrl ? `url(${bgUrl})` : undefined,
           backgroundRepeat: "no-repeat",
@@ -88,10 +75,11 @@ const Contact = () => {
         <div className="relative z-10 flex flex-col items-center text-center">
           {iconUrl && (
             <motion.div
-              className="w-28 h-28 md:w-40 md:h-40 rounded-full bg-blue-200 flex items-center justify-center mb-6 overflow-hidden"
+              className="relative w-28 h-28 md:w-40 md:h-40 rounded-full flex items-center justify-center mb-6 overflow-hidden"
               style={{
                 scale: iconScale,
                 opacity: iconOpacity,
+                top: iconTopPosition,
               }}
             >
               <Image
@@ -105,7 +93,12 @@ const Contact = () => {
               />
             </motion.div>
           )}
-          <div className="flex flex-col items-center">
+          <motion.div
+            className="flex flex-col items-center relative"
+            style={{
+              bottom: bottomPosition,
+            }}
+          >
             <h2 className="text-2xl md:text-3xl font-bold">{contactFormData.heading}</h2>
             {contactFormData.subheading && (
               <p className="mt-3 text-white/90 text-sm md:text-base">
@@ -113,40 +106,48 @@ const Contact = () => {
               </p>
             )}
 
-            <div className="mt-6 md:mt-8 space-y-4 w-full max-w-sm">
+            <div className="mt-6 md:mt-8 w-full max-w-sm rounded-xl bg-[#62b190]">
               {contactFormData.phone && (
-                <div className="flex items-center gap-3 bg-green-600 px-4 py-3 rounded-xl justify-center text-sm md:text-base">
-                  <Image
-                    src={phone.src}
-                    alt="phone"
-                    width={20}
-                    height={20}
-                    loading="lazy"
-                    className="h-5 w-5 object-contain"
-                  />
+                <div className="flex items-center gap-3 px-4 py-3 justify-between text-sm md:text-base rounded-tl-xl rounded-tr-xl relative">
+                  <div className="flex items-center gap-2">
+                    <Image
+                      src={phone.src}
+                      alt="phone"
+                      width={20}
+                      height={20}
+                      loading="lazy"
+                      className="h-5 w-5 object-contain"
+                    />{" "}
+                    Phone
+                  </div>
                   <span className="font-semibold tracking-wide">{contactFormData.phone}</span>
+                  <div className="absolute bottom-0 left-1/2 w-[80%] -translate-x-1/2 border-b-2 border-[#000]/10"></div>
                 </div>
               )}
               {contactFormData.email && (
-                <div className="flex items-center gap-3 bg-green-500 px-4 py-3 rounded-xl justify-center text-sm md:text-base">
-                  <Image
-                    src={mail.src}
-                    alt="mail"
-                    width={20}
-                    height={20}
-                    loading="lazy"
-                    className="h-5 w-5 object-contain"
-                  />
+                <div className="flex items-center gap-3 px-4 py-3 justify-between text-sm md:text-base rounded-bl-xl rounded-br-xl">
+                  <div className="flex items-center gap-2">
+                    <Image
+                      src={mail.src}
+                      alt="mail"
+                      width={20}
+                      height={20}
+                      loading="lazy"
+                      className="h-5 w-5 object-contain"
+                    />{" "}
+                    Email
+                  </div>
+
                   <span className="font-semibold tracking-wide">{contactFormData.email}</span>
                 </div>
               )}
             </div>
-          </div>
+          </motion.div>
         </div>
       </aside>
 
       <motion.article
-        className="bg-[#aacffe] flex flex-col justify-center flex-1 pr-10"
+        className="bg-[#aacffe] flex flex-col justify-center flex-1 pr-10 rounded-tr-[50px] rounded-br-[50px] relative"
         style={{
           paddingTop: paddingY,
           paddingBottom: paddingY,
@@ -156,6 +157,7 @@ const Contact = () => {
           className="p-6 md:p-10 bg-[#dbebff] rounded-3xl shadow-lg w-full relative"
           style={{
             overflow: overflowHidden,
+            left: -80,
           }}
         >
           <motion.div
@@ -174,7 +176,7 @@ const Contact = () => {
             />
           </motion.div>
           <h3 className="text-xl md:text-2xl font-bold mb-6 text-stone-950">
-            {contactFormData.form_title || "Let’s Talk!"}
+            {contactFormData.form_title || "Let's Talk!"}
           </h3>
 
           <form className="space-y-4">
