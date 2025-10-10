@@ -1,6 +1,6 @@
 "use client";
 
-import { memo, useEffect, useMemo, useRef, useState } from "react";
+import { memo, useEffect, useMemo, useRef } from "react";
 import Image from "next/image";
 import mail from "@/assets/mail.png";
 import phone from "@/assets/phone.png";
@@ -12,57 +12,38 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import lineMdEmail from "@/assets/lineMdEmail.png";
 
 const Contact = () => {
-  const [isMounted, setIsMounted] = useState(false);
   const sectionRef = useRef<HTMLDivElement>(null);
 
   const {
     contactForm: { isLoading, error, data },
   } = useAppContext();
 
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
-
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ["start end", "end start"],
   });
 
+  useEffect(() => {
+    const unsubscribe = scrollYProgress.on("change", (latest) => {
+      console.log("Scroll Progress:", latest);
+    });
+    return () => unsubscribe();
+  }, [scrollYProgress]);
+
   const lineMdEmailRightPosition = useTransform(scrollYProgress, [0, 0.4], [-50, -100]);
-
   const lineMdEmailTopPosition = useTransform(scrollYProgress, [0, 0.2, 0.4], [-120, -50, -75]);
-
   const overflowHidden = useTransform(scrollYProgress, [0, 0.3], ["visible", "hidden"]);
-
   const paddingY = useTransform(scrollYProgress, [0, 0.2], [0, 40]);
-
   const lineMdEmailRightScale = useTransform(scrollYProgress, [0, 0.2, 0.4], [0.8, 0.8, 0.5]);
+  const iconScale = useTransform(scrollYProgress, [0, 0.2, 0.3, 0.4], [0.01, 0.1, 0.3, 1]);
+  const iconOpacity = useTransform(scrollYProgress, [0, 0.2, 0.3, 0.4], [0, 0.1, 0.5, 1]);
 
   const contactFormData: ContactFormSection | undefined = useMemo(
     () => data?.data?.sections?.[0],
     [data],
   );
 
-  const iconScale = useTransform(
-    scrollYProgress,
-    [0, 0.2, 0.3, 0.4, 0.5],
-    [0.01, 0.1, 0.2, 0.6, 1],
-  );
-
-  const iconOpacity = useTransform(scrollYProgress, [0, 0.2, 0.3, 0.4, 0.5], [0, 0.1, 0.5, 0.7, 1]);
-
-  if (!isMounted) {
-    return (
-      <div
-        ref={sectionRef}
-        className="flex justify-center items-center py-10 animate-pulse text-gray-400"
-      >
-        Loading Contact...
-      </div>
-    );
-  }
-
-  if (isLoading) return <div className="text-gray-500"></div>;
+  if (isLoading) return <div className="text-gray-500">Loading...</div>;
   if (error) return <div className="text-red-500">Error loading contact info</div>;
   if (!contactFormData) return null;
 
@@ -73,11 +54,11 @@ const Contact = () => {
     <section
       ref={sectionRef}
       id={contactFormData.sectionId ?? "contact"}
-      className="relative h-full bg-white/10  my-20 max-md:rounded-[100px] rounded-[80px] flex max-md:flex-col w-full"
-      style={{ scrollMarginTop: "72px", padding: 0, marginTop: "72px" }}
+      className="relative h-full bg-white/10 my-20 max-md:rounded-[100px] rounded-[80px] flex max-md:flex-col w-full !p-0"
+      style={{ scrollMarginTop: "72px", marginTop: "72px" }}
     >
       <aside
-        className="flex-2 relative flex flex-col items-center justify-center p-6 md:p-10 text-white bg-gradient-to-b from-blue-400 to-blue-600"
+        className="flex-2 relative flex flex-col items-center justify-center p-6 md:p-10 text-white bg-gradient-to-b from-blue-400 to-blue-600 rounded-tl-[50px] rounded-bl-[50px]"
         style={{
           backgroundImage: bgUrl ? `url(${bgUrl})` : undefined,
           backgroundRepeat: "no-repeat",
@@ -146,7 +127,7 @@ const Contact = () => {
       </aside>
 
       <motion.article
-        className="bg-[#aacffe] flex flex-col justify-center flex-1 pr-10"
+        className="bg-[#aacffe] flex flex-col justify-center flex-1 pr-10 rounded-tr-[50px] rounded-br-[50px] relative"
         style={{
           paddingTop: paddingY,
           paddingBottom: paddingY,
@@ -156,6 +137,7 @@ const Contact = () => {
           className="p-6 md:p-10 bg-[#dbebff] rounded-3xl shadow-lg w-full relative"
           style={{
             overflow: overflowHidden,
+            left: -80,
           }}
         >
           <motion.div
@@ -174,7 +156,7 @@ const Contact = () => {
             />
           </motion.div>
           <h3 className="text-xl md:text-2xl font-bold mb-6 text-stone-950">
-            {contactFormData.form_title || "Let’s Talk!"}
+            {contactFormData.form_title || "Let's Talk!"}
           </h3>
 
           <form className="space-y-4">

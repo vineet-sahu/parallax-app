@@ -1,16 +1,22 @@
 "use client";
 import React from "react";
-
+import dynamic from "next/dynamic";
 import Client from "@/components/sections/Clients";
 import Hero from "./../components/sections/Hero";
-import Services from "@/components/sections/Services";
-import Testimonial from "@/components/sections/Testimonial";
-import SuccessStories from "@/components/sections/SuccessStories";
-import TechnologyStack from "@/components/sections/TechnologyStack";
-import Insights from "@/components/sections/Insights";
-import Contact from "@/components/sections/Contact";
-import LazyLoaderWithScroll from "@/components/common/LazyLoaderWithScroll";
-import ClientRootWrapper from "@/components/ClientRootWrapper";
+const Services = dynamic(() => import("@/components/sections/Services"), { ssr: false });
+const Testimonial = dynamic(() => import("@/components/sections/Testimonial"), { ssr: false });
+const SuccessStories = dynamic(() => import("@/components/sections/SuccessStories"), {
+  ssr: false,
+});
+const TechnologyStack = dynamic(() => import("@/components/sections/TechnologyStack"), {
+  ssr: false,
+});
+const Insights = dynamic(() => import("@/components/sections/Insights"), { ssr: false });
+const Contact = dynamic(() => import("@/components/sections/Contact"), { ssr: false });
+const LazyLoaderWithScroll = dynamic(() => import("@/components/common/LazyLoaderWithScroll"), {
+  ssr: false,
+});
+const ClientRootWrapper = dynamic(() => import("@/components/ClientRootWrapper"), { ssr: false });
 import { motion, useTransform, useScroll, useMotionTemplate } from "framer-motion";
 import MainBall from "@/assets/MainBall.png";
 import Image from "next/image";
